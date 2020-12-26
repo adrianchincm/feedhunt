@@ -8,6 +8,7 @@ module.exports = {
       bgPrimary: '#282c34',
       primary: '#ffffff',
       secondary: '#4398f6',
+      textgray: '#8899A6',
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,

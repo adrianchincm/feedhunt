@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-import './App.css';
 import "antd/dist/antd.css";
 import ComposeHeader from './components/ComposeHeader';
 import Home from './containers/Home';
