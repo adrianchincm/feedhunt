@@ -18,5 +18,11 @@ export const customInput = createMuiTheme({
             },
           }   
       },
+      MuiSvgIcon: {
+        root: {
+            fill: '#818589'
+        }        
+      }
     },
+    
 });
