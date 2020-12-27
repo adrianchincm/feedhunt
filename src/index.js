@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {IntlProvider} from "react-intl";
+import {BrowserRouter} from 'react-router-dom'
 
 import messages_en from "./translations/en.json";
 
@@ -15,7 +16,9 @@ const language = navigator.language.split(/[-_]/)[0];  // language without regio
 ReactDOM.render(
   <React.StrictMode>
     <IntlProvider locale={language} messages={messages[language]}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </IntlProvider>
   </React.StrictMode>,
   document.getElementById('root')

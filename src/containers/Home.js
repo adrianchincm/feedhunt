@@ -6,7 +6,7 @@ import Signup from '../components/Signup'
 
 const Home = () => {
     return (
-        <div class="bg-bgPrimary h-screen items-center ">
+        <div class="h-screen items-center ">
             <ComposeHeader />
             <Post />
             
