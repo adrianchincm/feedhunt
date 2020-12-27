@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { customInput } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
 
-const Signup = () => {
+const Login = () => {
 
     return (     
         <ThemeProvider theme={customInput}>   
@@ -13,18 +13,17 @@ const Signup = () => {
                 
                 <p class="text-3xl font-extrabold">
                     <FormattedMessage
-                        id="create-your-account"          
+                        id="log-in-to-feedhunt"          
                     />
                 </p>                
                 <div class="flex flex-col p-8 space-y-8 items-center">
-                    <Input placeholder="Email" />
-                    <Input placeholder="Password" />
-                    <Input placeholder="Username" />
+                    <Input placeholder="Email/Username" />
+                    <Input placeholder="Password" />                    
                 </div>                
                 
                     <Button type="primary" shape="round" size="large" block>
-                        <FormattedMessage
-                            id="signup"          
+                    <FormattedMessage
+                            id="login"          
                         />
                     </Button>                        
                 
@@ -33,5 +32,5 @@ const Signup = () => {
     );
 }
 
-export default Signup;
+export default Login;
 
