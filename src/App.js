@@ -4,6 +4,7 @@ import {  Switch } from 'react-router-dom';
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import LandingPage from "./containers/LandingPage";
 
 const App = () => {
   let routes = (
@@ -11,7 +12,7 @@ const App = () => {
       <Route path = "/home" exact component={Home}></Route>
       <Route path = "/login" exact component={Login}></Route>      
       <Route path = "/signup" exact component={Signup}></Route>   
-      <Route path = "/" component={Home}></Route>       
+      <Route path = "/" component={LandingPage}></Route>       
     <Redirect to="/" />
     </Switch>
   );

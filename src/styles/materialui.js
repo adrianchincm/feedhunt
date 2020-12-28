@@ -23,6 +23,15 @@ export const customInput = createMuiTheme({
             fill: '#818589'
         }        
       }
-    },
-    
+    },    
+});
+
+export const landingPageTheme = createMuiTheme({
+  overrides: {
+    MuiSvgIcon: {
+      root: {
+          fill: '#fff'
+      }        
+    }
+  },    
 });
