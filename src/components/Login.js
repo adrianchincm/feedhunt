@@ -5,16 +5,19 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import logo from '../images/square-logo.png';
 import { Button } from 'antd';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { customInput } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
 
-const Login = () => {
+const Login = props => {
 
     const [emailOrUsername, setEmailOrUsername] = useState('test@test.com');
     const [password, setPassword] = useState('testing123');
     const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState(false);
+    
 
     const onEmailUsernameChanged = text => event => {
         setEmailOrUsername(event.target.value);        
@@ -33,11 +36,14 @@ const Login = () => {
         axios.post('/users/login', userObj)
         .then(response => {
             // console.log("ORDER SUCCESS", response.data)
-            alert('LOGIN SUCCESS')
+            console.log(response.data.token)
+            window.sessionStorage.setItem("authToken", response.data.token);
+            props.history.push('/home')
         })
         .catch(error => {
-            console.log("SIGNUP FAILED", error)
-            alert('LOGIN FAIL', error)
+            // console.log("SIGNUP FAILED", error)
+            // alert('LOGIN FAIL', error)
+            setError(true)
         });    
     }
 
@@ -51,8 +57,14 @@ const Login = () => {
 
     return (     
         <ThemeProvider theme={customInput}>   
-        <div class="p-3 justify-center max-w-xl mx-auto" > 
+        <div class="p-8 justify-center max-w-xl mx-auto" > 
                 
+                <img src={logo} 
+                    width="50" 
+                    height="50" 
+                    alt="logo" 
+                    class="mb-4 mx-auto"/>
+
                 <p class="text-3xl font-extrabold">
                     <FormattedMessage
                         id="log-in-to-feedhunt"          
@@ -75,7 +87,8 @@ const Login = () => {
                               </IconButton>
                             </InputAdornment>
                           }
-                        />                    
+                        />
+                    {error ? <p class="text-red-500">Incorrect username/email or password</p> : null}                       
                 </div>                
                 
                 <Button type="primary" shape="round" size="large" block onClick={() => onLoginClicked()}>

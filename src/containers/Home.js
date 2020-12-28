@@ -10,12 +10,8 @@ const Home = () => {
             <ComposeHeader />
             <Post />
             
-            <Signup />    
-            <Login />
-            
-            
-            
-            
+            {/* <Signup />    
+            <Login /> */}                                            
             {/* <ComposeHeader />
             <Feed /> */}
         </div>

@@ -8,14 +8,14 @@ import { landingPageTheme } from '../styles/materialui';
 import { Button } from 'antd';
 import {FormattedMessage} from 'react-intl';
 
-const LandingPage = () => {
+const LandingPage = props => {
     
     const onSignupClicked = () => {
-
+        props.history.push('/signup')
     }
 
     const onLoginClicked = () => {
-
+        props.history.push('/login')
     }
 
     return (
@@ -40,7 +40,7 @@ const LandingPage = () => {
                 </div>                
             </div>
 
-            <div class="flex items-center h-screen">
+            <div class="relative flex items-center h-screen">
                 <div class="mx-auto max-w-sm text-left">
                     <img src={logo} alt="logo" class="mb-4"/>                                            
                     <p class="font-bold text-3xl ml-2 mb-16">Start hunting for the best deals around now</p>
@@ -59,9 +59,12 @@ const LandingPage = () => {
                         <FormattedMessage
                             id="login"          
                         />
-                    </Button> 
-                    
+                    </Button>                     
+
+                    <div class="absolute bottom-0"><p class="text-textgray">Created by Adrian Chin</p></div>
                 </div> 
+
+                
             </div>            
         </div>
         </ThemeProvider>

@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { customInput } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
+import logo from '../images/square-logo.png';
 import axios from '../shared/axios'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -58,8 +59,13 @@ const Signup = () => {
 
     return (     
         <ThemeProvider theme={customInput}>   
-        <div class="p-3 justify-center max-w-xl mx-auto" > 
-                
+        <div class="p-8 justify-center max-w-xl mx-auto" > 
+                <img src={logo} 
+                    width="50" 
+                    height="50" 
+                    alt="logo" 
+                    class="mb-4 mx-auto"/>
+
                 <p class="text-3xl font-extrabold">
                     <FormattedMessage
                         id="create-your-account"          
