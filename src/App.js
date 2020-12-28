@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div className="bg-bgPrimary h-full h-screen text-center">    
+      <div className="bg-bgPrimary h-full text-center">    
         {routes}
       </div>
     </ThemeProvider>

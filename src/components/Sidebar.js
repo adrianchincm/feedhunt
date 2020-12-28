@@ -17,7 +17,7 @@ const Sidebar = props => {
         if (logout.success) {
             props.clearUser()
             window.sessionStorage.removeItem("authToken");
-            props.history.push('/')        
+            window.location.replace('/');        
         }
        } catch (e) {
         console.log(e)
@@ -25,7 +25,7 @@ const Sidebar = props => {
    }
 
     return (        
-        <div class="p-8 max-w-xs">
+        <div class="p-8">
            <div class="flex items-center shadow-none">               
                <SideBarButton               
                 startIcon={<ExitToAppOutlinedIcon />}

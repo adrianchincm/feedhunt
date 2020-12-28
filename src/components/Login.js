@@ -61,7 +61,7 @@ const Login = props => {
 
     return (     
         <ThemeProvider theme={defaultTheme}>   
-        <div class="p-8 justify-center max-w-xl mx-auto" > 
+        <div class="p-8 h-screen justify-center max-w-xl mx-auto" > 
                 
                 <img src={logo} 
                     width="50" 

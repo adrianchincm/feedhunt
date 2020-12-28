@@ -7,13 +7,13 @@ import Signup from '../components/Signup'
 
 const Home = props => {
     return (
-        <div class="h-full">
+        <div class="flex justify-center items-start">
             
-            <div class="float-left fixed">
-                <Sidebar {...props} />
+            <div class="sticky top-0">
+                <Sidebar />
             </div>
 
-            <div class="max-w-lg border-solid border-l border-r border-textgray mx-auto">
+            <div class="max-w-lg border-solid border-l border-r border-textgray ">
                 <ComposeHeader />
                 <Post />
                 <Post />
