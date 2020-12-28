@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import logo from '../images/square-logo.png';
 import { Button } from 'antd';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { customInput } from '../styles/materialui';
+import { defaultTheme } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions/index'
@@ -60,7 +60,7 @@ const Login = props => {
     };
 
     return (     
-        <ThemeProvider theme={customInput}>   
+        <ThemeProvider theme={defaultTheme}>   
         <div class="p-8 justify-center max-w-xl mx-auto" > 
                 
                 <img src={logo} 

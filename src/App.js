@@ -5,6 +5,9 @@ import { Route, withRouter, Redirect } from 'react-router-dom'
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import LandingPage from "./containers/LandingPage";
+import { isAuthenticated } from './shared/api'
+import { ThemeProvider } from '@material-ui/core/styles';
+import { defaultTheme } from './styles/materialui'
 
 const App = () => {
   let routes = (
@@ -16,25 +19,23 @@ const App = () => {
     <Redirect to="/" />
     </Switch>
   );
-  // console.log("ADMIN", props.isAdmin)
-  // if (props.isAdmin) {
-  //   routes = (
-  //     <Switch>
-  //       <Route path = "/cart" component={Cart}></Route>
-  //       <Route path = "/delivery" exact component={Delivery}></Route>
-  //       <Route path = "/checkout-details" exact component={CheckoutDetails}></Route>
-  //       <Route path = "/admin" exact component={AdminLogin}></Route>
-  //       <Route path = "/admin-view" exact component={AdminView}></Route>      
-  //       <Route path = "/" exact component={MenuItemContainer}></Route>          
-  //     <Redirect to="/" />
-  //     </Switch>
-  //   );
-  // }
+  
+  if (isAuthenticated()) {
+    console.log("IS AUTHENTICATED")
+    routes = (
+      <Switch>        
+        <Route path = "/home" component={Home}></Route>        
+      <Redirect to="/home" />
+      </Switch>
+    );
+  }
 
   return (
-    <div className="bg-bgPrimary h-screen text-center">    
-      {routes}
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <div className="bg-bgPrimary h-full h-screen text-center">    
+        {routes}
+      </div>
+    </ThemeProvider>
   );
 }
 

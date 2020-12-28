@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Input from '@material-ui/core/Input';
 import { Button } from 'antd';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { customInput } from '../styles/materialui';
+import { defaultTheme } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
 import logo from '../images/square-logo.png';
 import axios from '../shared/axios'
@@ -75,7 +75,7 @@ const Signup = props => {
     };
 
     return (     
-        <ThemeProvider theme={customInput}>   
+        <ThemeProvider theme={defaultTheme}>   
         <div class="p-8 justify-center max-w-xl mx-auto" > 
                 <img src={logo} 
                     width="50" 

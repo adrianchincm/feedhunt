@@ -15,4 +15,5 @@
 
 export {
     setUser,
+    clearUser,
 } from './auth'

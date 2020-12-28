@@ -11,11 +11,18 @@ const saveUser = (state, action) => {
     });            
 }
 
-const reducer = (state = initialState, action) => {
-    
+const clearUser = (state, action) => {    
+    return updateObject(state, {    
+        user: null,                
+    });            
+}
+
+const reducer = (state = initialState, action) => {    
     switch (action.type) {
         case actionTypes.SAVE_USER: 
-            return saveUser(state, action);                                 
+            return saveUser(state, action);
+        case actionTypes.CLEAR_USER: 
+            return clearUser(state, action);                                 
         default: 
             return state    
     }

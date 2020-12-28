@@ -4,7 +4,6 @@ import ShareIcon from '@material-ui/icons/Share';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import logo from '../images/feedhunt-logo.png';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { landingPageTheme } from '../styles/materialui';
 import { Button } from 'antd';
 import {FormattedMessage} from 'react-intl';
 
@@ -19,7 +18,6 @@ const LandingPage = props => {
     }
 
     return (
-        <ThemeProvider theme={landingPageTheme}>
         <div class="grid md:grid-cols-2 grid-cols-1">
             <div class="flex items-center h-screen bg-gradient-to-l from-secondary to-textgray">
                 <div class="mx-auto">
@@ -66,8 +64,7 @@ const LandingPage = props => {
 
                 
             </div>            
-        </div>
-        </ThemeProvider>
+        </div>        
     );
 }
 
