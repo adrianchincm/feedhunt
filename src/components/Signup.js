@@ -10,13 +10,16 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import {connect} from 'react-redux';
+import * as actions from '../store/actions/index'
 
-const Signup = () => {
+const Signup = props => {
 
     const [email, setEmail] = useState('test@test.com');
     const [password, setPassword] = useState('testing123');
     const [username, setUsername] = useState('tester');
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const onEmailChanged = text => event => {
         setEmail(event.target.value);        
@@ -41,12 +44,26 @@ const Signup = () => {
         axios.post('/users', userObj)
         .then(response => {
             // console.log("ORDER SUCCESS", response.data)
-            alert('SIGNUP SUCCESS')
+            window.sessionStorage.setItem("authToken", response.data.token);
+            props.setUser(response.data.user)
+            props.history.push('/home')
         })
         .catch(error => {
-            console.log("SIGNUP FAILED", error)
-            alert('SIGNUP FAIL', error)
+            // console.log(error.response.data)
+            handleSignupError(error.response.data)
         });    
+    }
+
+    const handleSignupError = error => {
+        if (error.errors && 'password' in error.errors) {
+            return setErrorMessage('Password needs to be more than 7 characters')
+        } else {
+            if ('email' in error.keyPattern) {
+                return setErrorMessage('Email is taken')
+            } else if ('username' in error.keyPattern) {
+                return setErrorMessage('Username is taken')
+            }
+        }
     }
 
     const handleClickShowPassword = () => {
@@ -89,6 +106,8 @@ const Signup = () => {
                             </InputAdornment>
                           }/>
                     <Input placeholder="Username" onChange={onUsernameChanged('inputText')}/>
+
+                    {errorMessage ? <p class="text-red-500">{errorMessage}</p> : null}
                 </div>                
                 
                     <Button type="primary" shape="round" size="large" block onClick={() => onSignupClicked()}>
@@ -102,5 +121,10 @@ const Signup = () => {
     );
 }
 
-export default Signup;
-
+const mapDispatchToProps = dispatch => {
+    return {
+        setUser: (user) => dispatch(actions.setUser(user)),         
+    }
+  }
+  
+export default connect(null, mapDispatchToProps)(Signup);
