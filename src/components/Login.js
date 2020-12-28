@@ -10,6 +10,8 @@ import { Button } from 'antd';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { customInput } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
+import {connect} from 'react-redux';
+import * as actions from '../store/actions/index'
 
 const Login = props => {
 
@@ -36,8 +38,10 @@ const Login = props => {
         axios.post('/users/login', userObj)
         .then(response => {
             // console.log("ORDER SUCCESS", response.data)
-            console.log(response.data.token)
+            console.log("USER", response.data.user)
+            console.log(response.data)
             window.sessionStorage.setItem("authToken", response.data.token);
+            props.setUser(response.data.user)
             props.history.push('/home')
         })
         .catch(error => {
@@ -102,5 +106,12 @@ const Login = props => {
     );
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+    return {
+        setUser: (user) => dispatch(actions.setUser(user)),         
+    }
+  }
+  
+export default connect(null, mapDispatchToProps)(Login);
+
 
