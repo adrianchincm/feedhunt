@@ -1,12 +1,23 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import ComposeHeader from '../components/ComposeHeader'
-import Login from './Login'
 import Post from '../components/Post'
 import Sidebar from '../components/Sidebar'
-import Signup from './Signup'
 import Feed from '../components/Feed'
+import { authApi } from '../shared/api'
 
 const Home = props => {
+
+    useEffect(() => {
+        fetchPosts()         
+    }, [])
+
+    const [posts, setPosts] = useState(null);
+
+    const fetchPosts = async () => {
+        const posts = await authApi('/posts')
+        setPosts(posts)
+    }
+
     return (
         <div class="flex justify-center items-start h-screen">
             
@@ -15,8 +26,8 @@ const Home = props => {
             </div>
 
             <div class="w-600px border-solid border-l border-r border-dividerGray h-screen">
-                <ComposeHeader />
-                <Feed />
+                <ComposeHeader refreshFeed={fetchPosts}/>
+                <Feed posts={posts}/>
 
                 {/* <Post />
                 <Post />

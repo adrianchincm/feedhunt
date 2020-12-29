@@ -1,26 +1,24 @@
 import React, {useState, useEffect}  from 'react'
 import { authApi } from '../shared/api'
 import Post from './Post'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Feed = () => {
-
-    const [posts, setPosts] = useState([]);
-
-    const fetchPosts = async () => {
-        const posts = await authApi('/posts')
-        setPosts(posts)
-    }
-
-    useEffect(() => {
-        fetchPosts()         
-    }, [])
+const Feed = props => {
 
     return (
         <div class="border-solid mt-2 border-t border-dividerGray">
-            {/* <p>Amount of posts : {posts.length}</p> */}
-            {posts.map((post) => {
-                return <Post post={post} />
-            })}
+                {props.posts ? <div>
+                    {props.posts.map((post) => {
+                        return <Post post={post} />
+                    })}
+                </div>
+                : 
+                <div class="mt-4">
+                    <CircularProgress />
+                </div>
+                
+            }            
+            
         </div>
     )
 }

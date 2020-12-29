@@ -1,11 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
+import { authApi } from '../shared/api'
+import { END_POINTS }  from '../endpoints'
+import { HTTP_POST }  from '../constants'
 
+const ComposeHeader = props => {
 
-const ComposeHeader = () => {
+    const [content, setContent] = useState('')
+    const [buttonLoading, setButtonLoading] = useState(false)
+
+    const createPost = async () => {
+        setButtonLoading(true)
+
+        var postObj = {
+            content
+        }
+
+        try {
+            await authApi(END_POINTS.posts, {
+                method: HTTP_POST,
+                body: JSON.stringify(postObj)
+            })
+
+            setButtonLoading(false)
+            props.refreshFeed()
+            setContent('')
+        } catch (e) {
+            console.log(e)
+        }        
+        
+    }
+
+    const onContentChanged = text => event => {
+        setContent(event.target.value);    
+    }
 
     return (
         
@@ -13,18 +44,25 @@ const ComposeHeader = () => {
             <div class="text-left">
                 <InputBase 
                     placeholder="What do you want to share?"
-                    inputProps={{style: {fontSize: 20, color: 'white', minWidth: '300px', lineHeight: '1.6'}}}
+                    inputProps={{style: {fontSize: 20, color: 'white', width: '420px', lineHeight: '1.6'}}}
                     color="#fff"
                     multiline
+                    value={content}
+                    onChange={onContentChanged('inputText')}
                 />
             </div>
             <div class="text-right">
-                <Button type="primary" shape="round" icon={<SendOutlined />} size="large">
+                <Button 
+                    type="primary"
+                    shape="round" 
+                    icon={<SendOutlined />} 
+                    size="large"
+                    loading={buttonLoading}
+                    disabled={content.length === 0} 
+                    onClick={() => createPost()}>
                     Post
                 </Button>
-            </div>
-            
-            {/* <div class="text-secondary">TESTING</div>             */}
+            </div>                        
         </div>
     );
 }
