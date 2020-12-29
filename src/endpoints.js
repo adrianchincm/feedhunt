@@ -1,3 +1,4 @@
 export const END_POINTS = {
-    posts: `/posts`,
+    own_posts: `/posts/me`,
+    following_posts: `/posts/following`,
 }
