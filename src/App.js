@@ -1,9 +1,9 @@
 import "antd/dist/antd.css";
 import Home from './containers/Home';
 import {  Switch } from 'react-router-dom';
-import { Route, withRouter, Redirect } from 'react-router-dom'
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import { Route, Redirect } from 'react-router-dom'
+import Login from "./containers/Login";
+import Signup from "./containers/Signup";
 import LandingPage from "./containers/LandingPage";
 import { isAuthenticated } from './shared/api'
 import { ThemeProvider } from '@material-ui/core/styles';

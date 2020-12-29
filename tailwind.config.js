@@ -9,6 +9,8 @@ module.exports = {
       primary: '#ffffff',
       secondary: '#4398f6',
       textgray: '#8899A6',
+      bgPrimaryLight: '#424855',
+      dividerGray: '#46545e',
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,
@@ -16,7 +18,16 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
     },
-    extend: {},
+    extend: {
+      width: {
+        '600px': '600px',
+        '50px': '50px'
+      },
+      height: {        
+        '50px': '50px'
+      }
+    },    
+
   },
   variants: {
     extend: {},

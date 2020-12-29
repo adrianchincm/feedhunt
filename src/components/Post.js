@@ -1,17 +1,19 @@
 import React from 'react'
 import avatarTest from '../images/img_avatar.png';
 
-const Post = () => {
+const Post = props => {
 
     return (
-        <div class="flex flex-row justify-center mt-4">
-             <img src={avatarTest}                                     
+        <div class="flex flex-row justify-left p-2 cursor-pointer items-center
+        transition duration-300 ease-in-out hover:bg-bgPrimaryLight 
+        border-solid border-b border-dividerGray">
+             <img src={props.post.owner.avatar}                                     
                     alt="avatar"
-                    class="rounded-full max-h-12 max-w-12"
+                    class="rounded-full w-50px h-50px "
                     />
             <div class="flex flex-col ml-4 text-left">               
-                <p class="font-bold mb-0">Adrian Chin</p>
-                <p class="">I tried KFC's latest tandoori chicken and it was quite disappointing</p>                
+                <p class="font-bold mb-0">{props.post.owner.username}</p>
+                <p class="">{props.post.content}</p>                
             </div>
         </div>
     );

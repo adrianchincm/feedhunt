@@ -9,8 +9,8 @@ const ComposeHeader = () => {
 
     return (
         
-        <div>
-            <div class="p-3">
+        <div class="p-4 border-solid border-b border-dividerGray">
+            <div class="text-left">
                 <InputBase 
                     placeholder="What do you want to share?"
                     inputProps={{style: {fontSize: 20, color: 'white', minWidth: '300px', lineHeight: '1.6'}}}
@@ -18,9 +18,12 @@ const ComposeHeader = () => {
                     multiline
                 />
             </div>
-            <Button type="primary" shape="round" icon={<SendOutlined />} size="large">
-                Post
-            </Button>
+            <div class="text-right">
+                <Button type="primary" shape="round" icon={<SendOutlined />} size="large">
+                    Post
+                </Button>
+            </div>
+            
             {/* <div class="text-secondary">TESTING</div>             */}
         </div>
     );
