@@ -35,14 +35,10 @@ const Sidebar = props => {
         props.route('/profile')
    }
 
-   const test = (buttonText) => {
-       return "text-secondary"
-   }
-
     return (        
         <div class="p-8">
            
-           <div class="flex items-center shadow-none">               
+           <div class="flex items-center">               
                <SideBarButton               
                 startIcon={<HomeOutlinedIcon color="action"/>}
                 onClick={() => home()}
@@ -54,7 +50,7 @@ const Sidebar = props => {
                </SideBarButton>
             </div>
 
-            <div class="flex items-center shadow-none mt-4">               
+            <div class="flex items-center mt-4">               
                <SideBarButton               
                 startIcon={<PersonOutlineIcon />}
                 onClick={() => profile()}
@@ -66,7 +62,7 @@ const Sidebar = props => {
                </SideBarButton>
             </div>
 
-            <div class="flex items-center shadow-none mt-4">               
+            <div class="flex items-center mt-4">               
                <SideBarButton               
                 startIcon={<ExitToAppOutlinedIcon />}
                 onClick={() => logout()}

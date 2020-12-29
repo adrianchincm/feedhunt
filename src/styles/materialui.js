@@ -47,8 +47,7 @@ export const SideBarButton = withStyles({
     fontSize: 26,
     padding: '6px 12px',          
     lineHeight: 1.5,
-    backgroundColor: 'transparent',
-    outline: 'none',          
+    backgroundColor: 'transparent',              
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -65,6 +64,9 @@ export const SideBarButton = withStyles({
       backgroundColor: '#0069d9',
       borderColor: '#0062cc',
       boxShadow: 'none',
-    },              
+    },     
+    '&:focus': {
+      outline: 'none',
+    },           
   },
 })(Button);
