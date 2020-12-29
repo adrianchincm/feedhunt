@@ -20,7 +20,7 @@ const ComposeHeader = props => {
         }
 
         try {
-            await authApi(END_POINTS.own_posts, {
+            await authApi(END_POINTS.create_post, {
                 method: HTTP_POST,
                 body: JSON.stringify(postObj)
             })
