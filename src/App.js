@@ -25,6 +25,7 @@ const App = () => {
     routes = (
       <Switch>        
         <Route path = "/home" component={Home}></Route>        
+        <Route path = "/profile" component={Home}></Route>
       <Redirect to="/home" />
       </Switch>
     );

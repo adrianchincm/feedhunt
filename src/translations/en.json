@@ -2,5 +2,8 @@
     "login": "Login",
     "signup": "Sign up",
     "create-your-account": "Create your account",
-    "log-in-to-feedhunt": "Log in to Feedhunt"
+    "log-in-to-feedhunt": "Log in to Feedhunt",
+    "home": "Home",
+    "profile": "Profile",
+    "logout": "Logout"
 }
