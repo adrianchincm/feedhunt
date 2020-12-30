@@ -3,6 +3,7 @@ import ComposeHeader from '../components/ComposeHeader'
 import Profile from '../containers/Profile'
 import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
+import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 
@@ -21,6 +22,7 @@ const Home = props => {
     }
 
     const route = (path) => {
+        console.log("PATH", path)
         props.history.push(path)
     }
 
@@ -33,22 +35,22 @@ const Home = props => {
                 </div>
             )
         } else if (props.location.pathname === '/profile') {
-            return (
-                <Profile />
+            return (                
+                <Profile goBack={props.history.goBack} username={props.user.username}/>
             )
         }
     }
 
     return (
-        <div class="flex justify-center items-start h-screen">
+        <div class="flex justify-center items-start overscroll-y-none">
             
             <div class="sticky top-0">
                 <Sidebar route={route} path={props.location.pathname}/>
             </div>
 
-            <div class="w-600px border-solid border-l border-r border-dividerGray h-screen">
+            <div class="w-600px border-solid border-l border-r border-dividerGray min-h-screen ">
 
-                    {componentRouter()}
+                {componentRouter()}
 
                 {/* <ComposeHeader refreshFeed={fetchPosts}/>
                 <Feed posts={posts}/> */}
@@ -92,4 +94,10 @@ const Home = props => {
     );
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user,        
+    }
+}
+  
+export default connect(mapStateToProps, null)(Home);

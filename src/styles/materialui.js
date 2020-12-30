@@ -1,5 +1,6 @@
 import { createMuiTheme, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import MuiSvgIcon from '@material-ui/core/SvgIcon';
 
 export const defaultTheme = createMuiTheme({
     overrides: {
@@ -31,14 +32,38 @@ export const defaultTheme = createMuiTheme({
           '&:hover': {
             backgroundColor: "#4398f6"            
           },
-          '&:focus': {
-                       
-          }
         }
-      }  
+      }, 
     },  
     
 });
+
+export const backButtonTheme = createMuiTheme({
+  overrides: {
+    // Style sheet name ⚛️
+    MuiSvgIcon: {
+      root: {
+          fill: '#4398f6',   
+      }        
+    },
+    MuiIconButton: {
+      root: {        
+        '&:hover': {
+          backgroundColor: "rgba(0, 0, 0, 0.1)"            
+        },
+        '&:focus': {
+          outline: 'none',
+        }, 
+      }
+    },   
+  },    
+});
+
+export const BackButton = withStyles({
+  root: {
+    fill: '#fff'
+  }  
+})(MuiSvgIcon);
 
 export const SideBarButton = withStyles({
   root: {
@@ -70,3 +95,4 @@ export const SideBarButton = withStyles({
     },           
   },
 })(Button);
+

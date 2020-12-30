@@ -32,7 +32,8 @@ const Sidebar = props => {
    }
 
    const profile = () => {
-        props.route('/profile')
+       console.log("GO TO PROFILE")
+       props.route('/profile')
    }
 
     return (        

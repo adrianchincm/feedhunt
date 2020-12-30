@@ -35,4 +35,11 @@ export function timeSince(date) {
         return `${Math.floor(interval)}m`
     }
     return Math.floor(seconds) + "s";
-  }
+}
+
+export function monthYearDate(date) {    
+    const month = date.toLocaleDateString("en-US", { month: "short" });
+    const year = date.toLocaleDateString("en-US", { year: "numeric" });
+
+    return `${month} ${year}`
+}
