@@ -33,7 +33,7 @@ const App = () => {
           <Route path = "/login" exact component={Login}></Route>      
           <Route path = "/signup" exact component={Signup}></Route>
           <Route path = "/user/:username" component={Home}></Route>   
-          <Route path = "/" component={LandingPage}></Route>       
+          <Route path = "/" exact component={LandingPage}></Route>       
           <Redirect to="/" />
         </Switch>
     )

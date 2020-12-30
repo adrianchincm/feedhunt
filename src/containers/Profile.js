@@ -46,8 +46,26 @@ const Profile = props => {
         try {
             const { success } = await authApi(END_POINTS.follow({ username }), { method: HTTP_POST })
             if (success) {                
-                props.updateFollowing(userProfile.user._id)
-                setIsFollowing(true)                
+                props.addFollowing(userProfile.user._id)
+                setIsFollowing(true)
+                getUserProfile()                
+            }
+
+        } catch (e) {
+            console.log(e)
+        }                
+    }
+    
+    const unfollowUser = async () => {     
+        const username = props.username
+        
+        try {
+            const { success } = await authApi(END_POINTS.unfollow({ username }), { method: HTTP_POST })
+            if (success) {       
+                console.log("REMOVE IN PROFILE", userProfile.user._id)         
+                props.removeFollowing(userProfile.user._id)
+                setIsFollowing(false)
+                getUserProfile()                
             }
 
         } catch (e) {
@@ -93,13 +111,14 @@ const Profile = props => {
                             {monthYearDate(new Date(userProfile.user.createdAt))}
                         </p>                        
 
-                        <div class="rounded-full mt-2">
-                            <Tag color="#00c400">
-                                <FormattedMessage
-                                    id="following"          
-                                />
-                            </Tag>
-                        </div>
+                        {isFollowing ? <div class="rounded-full mt-2">
+                                <Tag color="#00c400">
+                                    <FormattedMessage
+                                        id="following"          
+                                    />
+                                </Tag>
+                                </div> : null }                                                                            
+                        
 
                         <div class="flex mt-4">
                             <p class="font-bold">{userProfile.following} &nbsp;</p>                            
@@ -111,11 +130,11 @@ const Profile = props => {
                     </div>
                  
                     <div class="absolute top-0 right-0 mt-8 mr-8">
-                    {props.user.username === props.username ? null : 
+                    {props.user && props.user.username === props.username ? null : 
                         <div>
                             {isFollowing ? 
                             <div class="flex flex-col">
-                                <Button type="primary" shape="round" size="large" onClick={() => followUser()}>
+                                <Button type="primary" shape="round" size="large" onClick={() => unfollowUser()}>
                                     <FormattedMessage
                                         id="unfollow"          
                                     />
@@ -150,13 +169,14 @@ const Profile = props => {
 
 const mapStateToProps = state => {
     return {
-        user: state.auth.user,        
+        user: state.user.user,        
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateFollowing: (followingUserId) => dispatch(actions.updateFollowing(followingUserId)),         
+        addFollowing: (followingUserId) => dispatch(actions.addFollowing(followingUserId)),         
+        removeFollowing: (followingUserId) => dispatch(actions.removeFollowing(followingUserId)),
     }
 }
   

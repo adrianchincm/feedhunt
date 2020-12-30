@@ -7,5 +7,8 @@ export const END_POINTS = {
     },
     follow({ username }) {
         return `/users/follow/${username}`;
+    },
+    unfollow({ username }) {
+        return `/users/unfollow/${username}`;
     }
 }

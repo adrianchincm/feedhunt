@@ -17,11 +17,19 @@ const clearUser = (state, action) => {
     });            
 }
 
-const updateFollowing = (state, action) => {    
-    console.log("state", state.user)
-    console.log("FOLLOWING USER", action.followingUserId)
+const addFollowing = (state, action) => {        
     const updatedUser = state.user
     updatedUser.following.push(action.followingUserId)
+    
+    return updateObject(state, {    
+        user: updatedUser,                
+    });            
+}
+
+const removeFollowing = (state, action) => {   
+    console.log("STATE", state)     
+    const updatedUser = state.user
+    updatedUser.following = updatedUser.following.filter(id => id !== action.followingUserId)
     
     return updateObject(state, {    
         user: updatedUser,                
@@ -34,8 +42,10 @@ const reducer = (state = initialState, action) => {
             return saveUser(state, action);
         case actionTypes.CLEAR_USER: 
             return clearUser(state, action);     
-        case actionTypes.UPDATE_FOLLOWING: 
-            return updateFollowing(state, action);                              
+        case actionTypes.ADD_FOLLOWING: 
+            return addFollowing(state, action);                              
+        case actionTypes.REMOVE_FOLLOWING: 
+            return removeFollowing(state, action);    
         default: 
             return state    
     }

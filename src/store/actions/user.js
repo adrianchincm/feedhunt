@@ -13,10 +13,17 @@ export const clearUser = () => {
     };
 }
 
-export const updateFollowing = (followingUserId) => {
-    console.log("UPDATE FOLLOWING ACTION", followingUserId)    
+export const addFollowing = (followingUserId) => {    
     return {
-        type: actionTypes.UPDATE_FOLLOWING,
+        type: actionTypes.ADD_FOLLOWING,
+        followingUserId
+    };
+}
+
+export const removeFollowing = (followingUserId) => {    
+    console.log("REMOVE FOLLOWING ACTIOn", followingUserId)
+    return {
+        type: actionTypes.REMOVE_FOLLOWING,
         followingUserId
     };
 }
