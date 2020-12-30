@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Feed from '../components/Feed'
+import { Button } from 'antd';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST }  from '../constants'
@@ -63,29 +64,42 @@ const ComposeHeader = props => {
             </div>
 
             {userProfile ?
-             <div class="text-left">
+             <div class="relative text-center align-center">
                 
-                <div class="border-solid border-b border-dividerGray">
-                    <img src={userProfile.user.avatar || null}                                     
-                        alt="avatar"
-                        class="rounded-full w-130px h-130px border-solid border-4 border-secondary"
-                    />
-
-                    <p class="mb-0">{userProfile.user.displayname}</p>
-                    <p class="text-textgray mb-0">{userProfile.user.username}</p>
-
-                    <p class="text-textgray mb-0">
-                        <FormattedMessage
-                            id="joined"          
+                <div class="flex justify-center items-start p-4 border-solid border-b border-dividerGray">
+                    <div>
+                        <img src={userProfile.user.avatar || null}                                     
+                            alt="avatar"
+                            class="rounded-full w-130px h-130px mx-auto border-solid border-4 border-secondary"
                         />
-                        &nbsp;
-                        {monthYearDate(new Date(userProfile.user.createdAt))}
-                    </p>
 
-                    <div class="flex">
-                        <p>{userProfile.following} Following</p>
-                        <p class="ml-4">{userProfile.followers} Followers</p>
+                        <p class="mb-0 mt-4 font-bold text-2xl">{userProfile.user.displayname}</p>
+                        <p class="text-textgray mb-0">{userProfile.user.username}</p>
+
+                        <p class="text-textgray mb-0">
+                            <FormattedMessage
+                                id="joined"          
+                            />
+                            &nbsp;
+                            {monthYearDate(new Date(userProfile.user.createdAt))}
+                        </p>
+
+                        <div class="flex mt-4">
+                            <p class="font-bold">{userProfile.following} &nbsp;</p>                            
+                            <p class="text-textgray">Following</p>
+
+                            <p class="ml-4 font-bold">{userProfile.followers} &nbsp;</p>                            
+                            <p class="text-textgray">Followers</p>
+                        </div>
                     </div>
+                 
+                    <div class="absolute top-0 right-0 mt-8 mr-8">
+                    <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
+                        <FormattedMessage
+                            id="follow"          
+                        />
+                    </Button> 
+                    </div> 
                 </div>    
 
                 <Feed posts={userProfile.posts}/>

@@ -42,7 +42,7 @@ const Home = props => {
     }
 
     return (
-        <div class="flex justify-center items-start overscroll-y-none">
+        <div class="flex justify-center items-start">
             
             <div class="sticky top-0">
                 <Sidebar route={route} path={props.location.pathname}/>
