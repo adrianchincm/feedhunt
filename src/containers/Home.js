@@ -11,7 +11,7 @@ const Home = props => {
 
     useEffect(() => {
         fetchPosts()         
-    }, [])
+    }, [props.user.following])
 
     const [posts, setPosts] = useState(null);
 
@@ -21,81 +21,47 @@ const Home = props => {
         setPosts(posts)
     }
 
-    const route = (path) => {
-        console.log("PATH", path)
-        props.history.push(path)
-    }
-
     const componentRouter = () => {
-        if (props.location.pathname === '/home') {
-            return (
-                <div>
-                    <ComposeHeader refreshFeed={fetchPosts}/>
-                    <Feed posts={posts}/>
-                </div>
-            )
-        } else if (props.location.pathname === '/profile') {
-            return (                
-                <Profile goBack={props.history.goBack} username={props.user.username}/>
-            )
-        } else if (props.location.pathname.includes('/user/')) {
-            const path = props.location.pathname
-            const username = path.substring(path.lastIndexOf('/') + 1)
-            return (                
-                <Profile goBack={props.history.goBack} username={username}/>
-            )
-        }
+
+        if (props.location.pathname.includes('/user/')) {
+                const path = props.location.pathname
+                const username = path.substring(path.lastIndexOf('/') + 1)
+                return (                
+                    <Profile goBack={props.history.goBack} username={username}/>
+                )
+            }
+
+        switch(props.location.pathname) {
+            case '/home': {
+                return (
+                    <div>
+                        <ComposeHeader refreshFeed={fetchPosts}/>
+                        <Feed posts={posts}/>
+                    </div>
+                ) 
+            }            
+            case '/profile': {
+                return (                
+                    <Profile goBack={props.history.goBack} username={props.user.username}/>
+                )
+            }
+            default: return
+        }        
     }
 
     return (
         <div class="flex justify-center items-start">
             
             <div class="sticky top-0">
-                <Sidebar route={route} path={props.location.pathname}/>
+                <Sidebar refreshFeed={fetchPosts} />
             </div>
 
             <div class="w-600px border-solid border-l border-r border-dividerGray min-h-screen ">
 
                 {componentRouter()}
-
-                {/* <ComposeHeader refreshFeed={fetchPosts}/>
-                <Feed posts={posts}/> */}
-
-                {/* <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post /> */}
+            
             </div>            
-            
-            
-            {/* <Signup />    
-            <Login /> */}                                            
-            {/* <ComposeHeader />
-            <Feed /> */}
+                        
         </div>
     );
 }

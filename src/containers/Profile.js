@@ -21,6 +21,7 @@ const Profile = props => {
 
     const [userProfile, setUserProfile] = useState(null)
     const [isFollowing, setIsFollowing] = useState(null)
+    const [followLoading, setFollowLoading] = useState(false)
 
     useEffect(() => {
         getUserProfile()
@@ -40,12 +41,14 @@ const Profile = props => {
         }                
     }
 
-    const followUser = async () => {     
+    const followUser = async () => {
+        setFollowLoading(true)     
         const username = props.username
         
         try {
             const { success } = await authApi(END_POINTS.follow({ username }), { method: HTTP_POST })
-            if (success) {                
+            if (success) {
+                setFollowLoading(false)                     
                 props.addFollowing(userProfile.user._id)
                 setIsFollowing(true)
                 getUserProfile()                
@@ -57,12 +60,13 @@ const Profile = props => {
     }
     
     const unfollowUser = async () => {     
+        setFollowLoading(true)     
         const username = props.username
         
         try {
             const { success } = await authApi(END_POINTS.unfollow({ username }), { method: HTTP_POST })
             if (success) {       
-                console.log("REMOVE IN PROFILE", userProfile.user._id)         
+                setFollowLoading(false)
                 props.removeFollowing(userProfile.user._id)
                 setIsFollowing(false)
                 getUserProfile()                
@@ -134,7 +138,7 @@ const Profile = props => {
                         <div>
                             {isFollowing ? 
                             <div class="flex flex-col">
-                                <Button type="primary" shape="round" size="large" onClick={() => unfollowUser()}>
+                                <Button type="primary" loading={followLoading} shape="round" size="large" onClick={() => unfollowUser()}>
                                     <FormattedMessage
                                         id="unfollow"          
                                     />
@@ -142,7 +146,7 @@ const Profile = props => {
                                 
                             </div>
                             : 
-                            <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
+                            <Button type="primary" ghost loading={followLoading} shape="round" size="large" onClick={() => followUser()}>
                                 <FormattedMessage
                                     id="follow"          
                                 />

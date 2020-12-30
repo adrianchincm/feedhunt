@@ -1,9 +1,16 @@
 import React from 'react'
 import avatar from '../images/user.png'
 import { timeSince } from '../shared/utility'
+import { useHistory } from "react-router-dom";
 
 const Post = props => {
     
+    const history = useHistory();
+
+    const goToUser = (username) => {
+        history.push(`/user/${username}`);
+    }
+
     return (
         <div class="flex flex-row justify-left p-2 cursor-pointer items-center
         transition duration-300 ease-in-out hover:bg-bgPrimaryLight 
@@ -14,7 +21,8 @@ const Post = props => {
                     />
             <div class="flex flex-col ml-4 text-left">
                 <div class="flex"> 
-                    <p class="font-bold mb-0">{props.post.owner.username}</p>
+                    <p class="font-bold mb-0 hover:underline" 
+                        onClick={() => goToUser(props.post.owner.username)}>{props.post.owner.displayname}</p>
                     <p class="ml-2 mb-0 text-textgray">{props.post.owner.username}</p>
                     <span class="ml-2 text-textgray">|</span>
                     <p class="ml-2 mb-0 text-textgray">{timeSince(new Date(props.post.createdAt))}</p>

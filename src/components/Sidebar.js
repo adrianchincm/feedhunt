@@ -7,12 +7,17 @@ import { authApi } from '../shared/api'
 import { HTTP_POST } from '../constants'
 import {connect} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
+import { useHistory, useLocation } from "react-router-dom";
 import * as actions from '../store/actions/index'
 
 const Sidebar = props => {
 
+    const history = useHistory()
+    const location = useLocation()
+
     const home = () => {
-        props.route('/home')
+        history.push('/home')
+        props.refreshFeed()
     }
 
    const logout = async () => {
@@ -31,20 +36,19 @@ const Sidebar = props => {
        }
    }
 
-   const profile = () => {
-       console.log("GO TO PROFILE")
-       props.route('/profile')
+   const profile = () => {       
+        history.push(`/user/${props.user.username}`)
    }
 
     return (        
-        <div class="p-8">
+        <div class="p-8">            
            
            <div class="flex items-center">               
                <SideBarButton               
                 startIcon={<HomeOutlinedIcon color="action"/>}
                 onClick={() => home()}
                 >
-                <div class={props.path === '/home' ? "text-secondary" : null}>
+                <div class={location.pathname === '/home' ? "text-secondary" : null}>
                     <FormattedMessage id="home"/>
                 </div>
                     
@@ -56,7 +60,7 @@ const Sidebar = props => {
                 startIcon={<PersonOutlineIcon />}
                 onClick={() => profile()}
                 >
-                <div class={props.path === '/profile' ? "text-secondary" : null}>
+                <div class={location.pathname === `/user/${props.user.username}` ? "text-secondary" : null}>
                     <FormattedMessage id="profile"/>
                 </div>
                     
@@ -77,10 +81,16 @@ const Sidebar = props => {
     );
 }
 
+const mapStateToProps = state => {
+    return {
+        user: state.user.user,        
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         clearUser: (user) => dispatch(actions.setUser(user)),         
     }
-  }
+}
   
-export default connect(null, mapDispatchToProps)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
