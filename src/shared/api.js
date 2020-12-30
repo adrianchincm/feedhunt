@@ -1,4 +1,6 @@
 const FEEDHUNT_URL = 'https://feedhunt.herokuapp.com'
+// const FEEDHUNT_URL = 'https://localhost:3000'
+
 
 export function getAuthToken() {
     return window.sessionStorage.getItem("authToken");

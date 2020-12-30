@@ -38,6 +38,12 @@ const Home = props => {
             return (                
                 <Profile goBack={props.history.goBack} username={props.user.username}/>
             )
+        } else if (props.location.pathname.includes('/user/')) {
+            const path = props.location.pathname
+            const username = path.substring(path.lastIndexOf('/') + 1)
+            return (                
+                <Profile goBack={props.history.goBack} username={username}/>
+            )
         }
     }
 

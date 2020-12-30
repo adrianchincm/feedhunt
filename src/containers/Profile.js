@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Feed from '../components/Feed'
 import { Button } from 'antd';
+import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST }  from '../constants'
@@ -10,17 +11,17 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { backButtonTheme } from '../styles/materialui'
 import {FormattedMessage} from 'react-intl';
 import { monthYearDate } from '../shared/utility'
+import axios from '../shared/axios'
 
-const ComposeHeader = props => {
+const Profile = props => {
 
     const [userProfile, setUserProfile] = useState(null)
 
     useEffect(() => {
         getUserProfile()
-    }, [])
+    }, [props.username])
 
-    const getUserProfile = async () => {   
-        
+    const getUserProfile = async () => {           
         const username = props.username
 
         try {
@@ -54,12 +55,17 @@ const ComposeHeader = props => {
     return (
         <ThemeProvider theme={backButtonTheme}>
         <div class="border-solid border-b border-dividerGray">
-            <div class="p-4 flex sticky items-center border-solid border-b border-dividerGray">
+            <div class="p-4 flex sticky top-0 bg-bgPrimary z-10 items-center border-solid border-b border-dividerGray">
                 <IconButton aria-label="delete" onClick={() => props.goBack()}>
                     <ArrowBackIcon />
                 </IconButton>
 
-                {userProfile ? <p class="mb-0 ml-4">{userProfile.user.username}</p> : null}
+                {userProfile ?
+                    <div class="flex items-center">
+                        <p class="mb-0 ml-4 font-bold text-xl">{userProfile.user.username}</p> 
+                        <p class="mb-0 ml-4 text-textgray">{userProfile.totalPosts} Posts</p> 
+                    </div>                    
+                    : null}
                 
             </div>
 
@@ -94,11 +100,12 @@ const ComposeHeader = props => {
                     </div>
                  
                     <div class="absolute top-0 right-0 mt-8 mr-8">
-                    <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
-                        <FormattedMessage
-                            id="follow"          
-                        />
-                    </Button> 
+                    {props.user.username === props.username ? null : 
+                        <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
+                            <FormattedMessage
+                                id="follow"          
+                            />
+                        </Button> }
                     </div> 
                 </div>    
 
@@ -113,4 +120,10 @@ const ComposeHeader = props => {
     );
 }
 
-export default ComposeHeader;
+const mapStateToProps = state => {
+    return {
+        user: state.auth.user,        
+    }
+}
+  
+export default connect(mapStateToProps, null)(Profile);
