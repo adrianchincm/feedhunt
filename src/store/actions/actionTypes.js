@@ -1,2 +1,3 @@
 export const SAVE_USER = 'SAVE_USER';
 export const CLEAR_USER = 'CLEAR_USER';
+export const UPDATE_FOLLOWING = 'UPDATE_FOLLOWING';

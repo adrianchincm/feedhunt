@@ -13,3 +13,11 @@ export const clearUser = () => {
     };
 }
 
+export const updateFollowing = (followingUserId) => {
+    console.log("UPDATE FOLLOWING ACTION", followingUserId)    
+    return {
+        type: actionTypes.UPDATE_FOLLOWING,
+        followingUserId
+    };
+}
+

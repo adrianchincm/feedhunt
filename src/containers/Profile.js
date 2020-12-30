@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Feed from '../components/Feed'
-import { Button } from 'antd';
+import { Button, Tag } from 'antd';
 import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
@@ -11,11 +11,14 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { backButtonTheme } from '../styles/materialui'
 import {FormattedMessage} from 'react-intl';
 import { monthYearDate } from '../shared/utility'
-import axios from '../shared/axios'
+import { CheckOutlined } from '@ant-design/icons';
+import * as actions from '../store/actions/index'
+
 
 const Profile = props => {
 
     const [userProfile, setUserProfile] = useState(null)
+    const [isFollowing, setIsFollowing] = useState(null)
 
     useEffect(() => {
         getUserProfile()
@@ -27,26 +30,24 @@ const Profile = props => {
         try {
             const userProfileResponse = await authApi(END_POINTS.getUserPosts({ username }))
             console.log(userProfileResponse)
-            setUserProfile(userProfileResponse)
+            setUserProfile(userProfileResponse)            
+            setIsFollowing(props.user.following.includes(userProfileResponse.user._id))
+            
         } catch (e) {
             console.log(e)
         }                
     }
 
-    const followUser = async (userId) => {        
-        var followObj = {
-            userId
-        }
-
+    const followUser = async () => {     
+        const username = props.username
+        
         try {
-            await authApi(END_POINTS.create_post, {
-                method: HTTP_POST,
-                body: JSON.stringify(followObj)
-            })
+            const { success } = await authApi(END_POINTS.follow({ username }), { method: HTTP_POST })
+            if (success) {                
+                props.updateFollowing(userProfile.user._id)
+                setIsFollowing(true)                
+            }
 
-            // setButtonLoading(false)
-            // props.refreshFeed()
-            // setContent('')
         } catch (e) {
             console.log(e)
         }                
@@ -88,7 +89,15 @@ const Profile = props => {
                             />
                             &nbsp;
                             {monthYearDate(new Date(userProfile.user.createdAt))}
-                        </p>
+                        </p>                        
+
+                        <div class="mt-2">
+                            <Tag icon={<CheckOutlined />} color="#00c400">
+                                <FormattedMessage
+                                    id="following"          
+                                />
+                            </Tag>
+                        </div>
 
                         <div class="flex mt-4">
                             <p class="font-bold">{userProfile.following} &nbsp;</p>                            
@@ -101,11 +110,25 @@ const Profile = props => {
                  
                     <div class="absolute top-0 right-0 mt-8 mr-8">
                     {props.user.username === props.username ? null : 
-                        <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
-                            <FormattedMessage
-                                id="follow"          
-                            />
-                        </Button> }
+                        <div>
+                            {isFollowing ? 
+                            <div class="flex flex-col">
+                                <Button type="primary" shape="round" size="large" onClick={() => followUser()}>
+                                    <FormattedMessage
+                                        id="unfollow"          
+                                    />
+                                </Button> 
+                                
+                            </div>
+                            : 
+                            <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
+                                <FormattedMessage
+                                    id="follow"          
+                                />
+                            </Button>}
+                            
+                        </div>
+                         }
                     </div> 
                 </div>    
 
@@ -125,5 +148,11 @@ const mapStateToProps = state => {
         user: state.auth.user,        
     }
 }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateFollowing: (followingUserId) => dispatch(actions.updateFollowing(followingUserId)),         
+    }
+}
   
-export default connect(mapStateToProps, null)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

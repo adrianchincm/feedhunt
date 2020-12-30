@@ -11,6 +11,7 @@ module.exports = {
       textgray: '#8899A6',
       bgPrimaryLight: '#424855',
       dividerGray: '#46545e',
+      green: '#00c400',
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,

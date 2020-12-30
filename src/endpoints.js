@@ -5,4 +5,7 @@ export const END_POINTS = {
     getUserPosts({ username }) {
         return `/posts/user/${username}`;
     },
+    follow({ username }) {
+        return `/users/follow/${username}`;
+    }
 }
