@@ -12,6 +12,7 @@ module.exports = {
       bgPrimaryLight: '#424855',
       dividerGray: '#46545e',
       green: '#00c400',
+      secondaryLight: '#7bb7f9',
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,

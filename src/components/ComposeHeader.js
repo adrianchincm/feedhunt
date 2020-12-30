@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import InputBase from '@material-ui/core/InputBase';
+import ImageIcon from '@material-ui/icons/Image';
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
@@ -11,6 +13,7 @@ const ComposeHeader = props => {
 
     const [content, setContent] = useState('')
     const [buttonLoading, setButtonLoading] = useState(false)
+    const [file, setFile] = useState(null)
 
     const createPost = async () => {
         setButtonLoading(true)
@@ -38,6 +41,10 @@ const ComposeHeader = props => {
         setContent(event.target.value);    
     }
 
+    const handleChange = (event) => {        
+        setFile(URL.createObjectURL(event.target.files[0]))        
+    }
+
     return (
         
         <div class="p-4 border-solid border-b border-dividerGray">
@@ -50,8 +57,22 @@ const ComposeHeader = props => {
                     value={content}
                     onChange={onContentChanged('inputText')}
                 />
-            </div>
-            <div class="text-right">
+            </div>        
+
+            {file ? <img src={file} alt="uploadedImage"/> : null}       
+
+            <div class="flex text-right">
+                
+                {/* <p class="text-right">TESTING</p> */}
+
+                <div class="flex-1 pt-2">
+                    <label for="file-input">                    
+                        <div class="flex cursor-pointer hover:bg-secondaryLight rounded-full w-8 h-8 justify-center items-center"><ImageIcon /></div>                                            
+                    </label>
+
+                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>      
+                </div>
+
                 <Button 
                     type="primary"
                     shape="round" 
