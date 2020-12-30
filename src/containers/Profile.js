@@ -12,6 +12,8 @@ import { backButtonTheme } from '../styles/materialui'
 import {FormattedMessage} from 'react-intl';
 import { monthYearDate } from '../shared/utility'
 import { CheckOutlined } from '@ant-design/icons';
+import avatar from '../images/user.png'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import * as actions from '../store/actions/index'
 
 
@@ -55,7 +57,7 @@ const Profile = props => {
 
     return (
         <ThemeProvider theme={backButtonTheme}>
-        <div class="border-solid border-b border-dividerGray">
+        <div class="border-solid">
             <div class="p-4 flex sticky top-0 bg-bgPrimary z-10 items-center border-solid border-b border-dividerGray">
                 <IconButton aria-label="delete" onClick={() => props.goBack()}>
                     <ArrowBackIcon />
@@ -75,7 +77,7 @@ const Profile = props => {
                 
                 <div class="flex justify-center items-start p-4 border-solid border-b border-dividerGray">
                     <div>
-                        <img src={userProfile.user.avatar || null}                                     
+                        <img src={userProfile.user.avatar || avatar}                                     
                             alt="avatar"
                             class="rounded-full w-130px h-130px mx-auto border-solid border-4 border-secondary"
                         />
@@ -91,8 +93,8 @@ const Profile = props => {
                             {monthYearDate(new Date(userProfile.user.createdAt))}
                         </p>                        
 
-                        <div class="mt-2">
-                            <Tag icon={<CheckOutlined />} color="#00c400">
+                        <div class="rounded-full mt-2">
+                            <Tag color="#00c400">
                                 <FormattedMessage
                                     id="following"          
                                 />
@@ -135,7 +137,10 @@ const Profile = props => {
                 <Feed posts={userProfile.posts}/>
                 <Feed posts={userProfile.posts}/>
 
-            </div> : null}
+            </div> : 
+                <div class="mt-4">
+                    <CircularProgress />
+                </div>}
             
             
         </div>
