@@ -1,4 +1,6 @@
 const FEEDHUNT_URL = 'https://feedhunt.herokuapp.com'
+// const FEEDHUNT_URL = 'https://localhost:3000'
+
 
 export function getAuthToken() {
     return window.sessionStorage.getItem("authToken");
@@ -18,13 +20,17 @@ export function authApi(endPoint, userOptions = {}, isOtherApiCall = false) {
       Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",      
     };
-  
-    if (userOptions.body instanceof File) {
+  if (userOptions.body) {
+    console.log(userOptions.body.image instanceof File)
+  }
+    
+    if (userOptions.body && userOptions.body.image instanceof File) {      
       const formData = new FormData();
-      formData.append("file", userOptions.body);
+      formData.append("image", userOptions.body.image);
+      formData.append("content", userOptions.body.content);
       userOptions.body = formData;
       // let browser set content-type to multipart/etc.
-      delete defaultHeaders["Content-Type"];
+      delete defaultHeaders["Content-Type"]
     }
   
     const options = { ...userOptions, headers: { ...defaultHeaders, ...userOptions.headers } };

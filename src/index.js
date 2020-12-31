@@ -11,6 +11,8 @@ import { persistor, store } from './store/configureStore';
 
 import messages_en from "./translations/en.json";
 
+document.body.style.overscrollBehaviorY = "none";
+
 const messages = {
   'en': messages_en
 };

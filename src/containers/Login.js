@@ -19,7 +19,7 @@ const Login = props => {
     const [password, setPassword] = useState('testing123');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(false);
-    
+    const [loading, setLoading] = useState(false);
 
     const onEmailUsernameChanged = text => event => {
         setEmailOrUsername(event.target.value);        
@@ -30,6 +30,8 @@ const Login = props => {
     }
 
     const onLoginClicked = () => {        
+        setLoading(true)
+
         var userObj = {
             email: emailOrUsername,            
             password
@@ -37,9 +39,7 @@ const Login = props => {
 
         axios.post('/users/login', userObj)
         .then(response => {
-            // console.log("ORDER SUCCESS", response.data)
-            console.log("USER", response.data.user)
-            console.log(response.data)
+            setLoading(false)
             window.sessionStorage.setItem("authToken", response.data.token);
             props.setUser(response.data.user)
             props.history.push('/home')
@@ -95,7 +95,7 @@ const Login = props => {
                     {error ? <p class="text-red-500">Incorrect username/email or password</p> : null}                       
                 </div>                
                 
-                <Button type="primary" shape="round" size="large" block onClick={() => onLoginClicked()}>
+                <Button type="primary" shape="round" loading={loading} size="large" block onClick={() => onLoginClicked()}>
                 <FormattedMessage
                         id="login"          
                     />

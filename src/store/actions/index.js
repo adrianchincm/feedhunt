@@ -16,4 +16,6 @@
 export {
     setUser,
     clearUser,
-} from './auth'
+    addFollowing,    
+    removeFollowing,
+} from './user'

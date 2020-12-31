@@ -9,7 +9,7 @@ const Feed = props => {
         <div class="border-solid mt-2 border-t border-dividerGray">
                 {props.posts ? <div>
                     {props.posts.map((post) => {
-                        return <Post post={post} />
+                        return <Post key={post._id} post={post} />
                     })}
                 </div>
                 : 

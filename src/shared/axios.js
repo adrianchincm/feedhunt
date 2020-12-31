@@ -3,6 +3,7 @@ import {getAuthToken} from './api'
 
 const instance = axios.create({
     baseURL: 'https://feedhunt.herokuapp.com'
+    // baseURL: 'https://localhost:3000'
 });
 
 instance.interceptors.request.use(function (config) {

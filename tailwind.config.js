@@ -11,6 +11,8 @@ module.exports = {
       textgray: '#8899A6',
       bgPrimaryLight: '#424855',
       dividerGray: '#46545e',
+      green: '#00c400',
+      secondaryLight: '#7bb7f9',
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,
@@ -21,10 +23,13 @@ module.exports = {
     extend: {
       width: {
         '600px': '600px',
-        '50px': '50px'
+        '500px': '500px',
+        '50px': '50px',
+        '130px': '130px'
       },
       height: {        
-        '50px': '50px'
+        '50px': '50px',
+        '130px': '130px'
       }
     },    
 

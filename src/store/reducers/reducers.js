@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 // import orderReducer from './order'
 // import deliveryReducer from './delivery'
-import authReducer from './auth'
+import userReducer from './user'
 
 export const rootReducer = combineReducers({
     // order: orderReducer,
     // delivery: deliveryReducer,
-    auth: authReducer,
+    user: userReducer,
 });
