@@ -59,12 +59,6 @@ export const backButtonTheme = createMuiTheme({
   },    
 });
 
-export const BackButton = withStyles({
-  root: {
-    fill: '#fff'
-  }  
-})(MuiSvgIcon);
-
 export const SideBarButton = withStyles({
   root: {
     boxShadow: 'none',

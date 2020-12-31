@@ -158,7 +158,6 @@ const Profile = props => {
                 </div>    
 
                 <Feed posts={userProfile.posts}/>
-                <Feed posts={userProfile.posts}/>
 
             </div> : 
                 <div class="mt-4">

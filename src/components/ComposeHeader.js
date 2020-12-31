@@ -64,8 +64,7 @@ const ComposeHeader = props => {
             <div class="text-left">
                 <InputBase 
                     placeholder="What do you want to share?"
-                    inputProps={{style: {fontSize: 20, color: 'white', width: '420px', lineHeight: '1.6'}}}
-                    color="#fff"
+                    inputProps={{style: {fontSize: 20, color: 'white', width: '420px', lineHeight: '1.6'}}}                    
                     multiline
                     value={content}
                     onChange={onContentChanged('inputText')}
@@ -77,7 +76,7 @@ const ComposeHeader = props => {
             <div class="flex text-right">
 
                 <div class="flex-1 pt-2">
-                    <label for="file-input">                    
+                    <label htmlFor="file-input">                    
                         <div class="flex cursor-pointer hover:bg-secondaryLight rounded-full w-8 h-8 justify-center items-center"><ImageIcon /></div>                                            
                     </label>
 

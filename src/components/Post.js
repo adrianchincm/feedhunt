@@ -29,7 +29,10 @@ const Post = props => {
                 </div>               
                 
                 <p class="">{props.post.content}</p>
-                <img src={props.post.imageURL} class="rounded-3xl max-w-500px mb-4 w-full" alt="attachedImage"></img>                
+                {props.post.imageURL ? 
+                    <img src={props.post.imageURL} 
+                    class="rounded-3xl max-w-500px mb-4 w-full"
+                    alt="attachedImage"></img> : null }               
             </div>
         </div>
     );
