@@ -55,7 +55,7 @@ const Sidebar = props => {
                </SideBarButton>
             </div>
 
-            <div class="flex items-center mt-4">               
+            {props.user ? <div class="flex items-center mt-4">               
                <SideBarButton               
                 startIcon={<PersonOutlineIcon />}
                 onClick={() => profile()}
@@ -65,7 +65,8 @@ const Sidebar = props => {
                 </div>
                     
                </SideBarButton>
-            </div>
+            </div> : null}
+            
 
             <div class="flex items-center mt-4">               
                <SideBarButton               

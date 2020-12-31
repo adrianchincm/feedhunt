@@ -13,28 +13,37 @@ const ComposeHeader = props => {
 
     const [content, setContent] = useState('')
     const [buttonLoading, setButtonLoading] = useState(false)
+    const [fileLocalURL, setFileLocalURL] = useState(null)
     const [file, setFile] = useState(null)
 
     const createPost = async () => {
         setButtonLoading(true)
 
         var postObj = {
-            content
+            content,
+            image: file
         }
 
         try {
             await authApi(END_POINTS.create_post, {
                 method: HTTP_POST,
-                body: JSON.stringify(postObj)
+                body: postObj
             })
 
             setButtonLoading(false)
             props.refreshFeed()
-            setContent('')
+            resetState()
         } catch (e) {
             console.log(e)
         }        
         
+    }
+
+    const resetState = () => {
+        setContent('')
+        setFile(null)
+        setFileLocalURL(null)
+        URL.revokeObjectURL(file)
     }
 
     const onContentChanged = text => event => {
@@ -42,7 +51,11 @@ const ComposeHeader = props => {
     }
 
     const handleChange = (event) => {        
-        setFile(URL.createObjectURL(event.target.files[0]))        
+        if (file) {
+            URL.revokeObjectURL(file)
+        }
+        setFileLocalURL(URL.createObjectURL(event.target.files[0]))
+        setFile(event.target.files[0])        
     }
 
     return (
@@ -59,11 +72,9 @@ const ComposeHeader = props => {
                 />
             </div>        
 
-            {file ? <img src={file} alt="uploadedImage"/> : null}       
+            {fileLocalURL ? <div><img class="rounded-3xl mb-4 mx-auto" src={fileLocalURL} alt="uploadedImage"/></div> : null}       
 
             <div class="flex text-right">
-                
-                {/* <p class="text-right">TESTING</p> */}
 
                 <div class="flex-1 pt-2">
                     <label for="file-input">                    

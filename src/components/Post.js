@@ -12,7 +12,7 @@ const Post = props => {
     }
 
     return (
-        <div class="flex flex-row justify-left p-2 cursor-pointer items-center
+        <div class="flex flex-row justify-left p-2 cursor-pointer items-start
         transition duration-300 ease-in-out hover:bg-bgPrimaryLight 
         border-solid border-b border-dividerGray">
              <img src={props.post.owner.avatar || avatar}                                     
@@ -28,7 +28,8 @@ const Post = props => {
                     <p class="ml-2 mb-0 text-textgray">{timeSince(new Date(props.post.createdAt))}</p>
                 </div>               
                 
-                <p class="">{props.post.content}</p>                
+                <p class="">{props.post.content}</p>
+                <img src={props.post.imageURL} class="rounded-3xl max-w-500px mb-4 w-full" alt="attachedImage"></img>                
             </div>
         </div>
     );

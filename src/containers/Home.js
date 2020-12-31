@@ -11,7 +11,7 @@ const Home = props => {
 
     useEffect(() => {
         fetchPosts()         
-    }, [props.user.following])
+    }, [])
 
     const [posts, setPosts] = useState(null);
 
