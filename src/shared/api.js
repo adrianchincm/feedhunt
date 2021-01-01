@@ -20,11 +20,9 @@ export function authApi(endPoint, userOptions = {}, isOtherApiCall = false) {
       Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",      
     };
-  if (userOptions.body) {
-    console.log(userOptions.body.image instanceof File)
-  }
     
     if (userOptions.body && userOptions.body.image instanceof File) {      
+      console.log("IMAGE FILE")
       const formData = new FormData();
       for ( var key in userOptions.body ) {
         formData.append(key, userOptions.body[key]);

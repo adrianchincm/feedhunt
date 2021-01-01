@@ -34,9 +34,12 @@ const ComposeHeader = props => {
     const createPost = async () => {
         setButtonLoading(true)
 
+        const embeddedProductsID = embeddedProducts.map((product) => product._id)        
+
         var postObj = {
             content,
-            image: file
+            image: file,
+            ...(embeddedProductsID.length !== 0 && { products: embeddedProductsID })
         }
 
         try {
@@ -58,6 +61,7 @@ const ComposeHeader = props => {
         setContent('')
         setFile(null)
         setFileLocalURL(null)
+        setEmbeddedProducts([])
         URL.revokeObjectURL(file)
     }
 
