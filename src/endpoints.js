@@ -10,5 +10,6 @@ export const END_POINTS = {
     },
     unfollow({ username }) {
         return `/users/unfollow/${username}`;
-    }
+    },
+    products: `/products`,
 }

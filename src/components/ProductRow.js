@@ -11,9 +11,9 @@ const ProductRow = props => {
     }
 
     return (
-        <div class="flex flex-row justify-left cursor-pointer items-center mb-4
+        <div class={`flex flex-row justify-left cursor-pointer items-center mb-4
         transition duration-300 ease-in-out hover:bg-bgPrimaryLighter 
-        border-solid border rounded-xl border-dividerGray">
+        ${props.isFeedView ? "border-b" : "border rounded-xl"} border-solid  border-dividerGray`}> 
              <img src={iphone}                                     
                     alt="avatar"
                     class="w-96px ml-4 rounded-xl"
