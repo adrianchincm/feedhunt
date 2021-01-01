@@ -1,24 +1,27 @@
 import React, {useState} from 'react'
 import InputBase from '@material-ui/core/InputBase';
 import ImageIcon from '@material-ui/icons/Image';
+import EmbedProductModal from './EmbedProductModal'
 import Modal from '@material-ui/core/Modal';
 import ProductRow from './ProductRow';
 import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
+import { modalStyles, getModalStyle } from '../styles/materialui'
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST }  from '../constants'
+import { FormattedMessage } from 'react-intl';
 
 const ComposeHeader = props => {
 
     const [content, setContent] = useState('')
     const [buttonLoading, setButtonLoading] = useState(false)
     const [fileLocalURL, setFileLocalURL] = useState(null)
-    const [file, setFile] = useState(null)
-    const [modalStyle] = React.useState(getModalStyle);
-    const [open, setOpen] = React.useState(false);
+    const [file, setFile] = useState(null)    
+    const [open, setOpen] = useState(false);
+    const [embeddedProducts, setEmbeddedProducts] = useState([]);
 
     const handleOpen = () => {
         setOpen(true);
@@ -27,28 +30,6 @@ const ComposeHeader = props => {
       const handleClose = () => {
         setOpen(false);
       };
-    
-
-    const useStyles = makeStyles((theme) => ({
-        paper: {
-          position: 'absolute',
-          width: 600,
-          height: 1000,
-          backgroundColor: '#282c34',
-          border: '2px solid #393f4a',
-          boxShadow: theme.shadows[5],
-          padding: theme.spacing(2, 4, 3),
-          overflow: 'auto'
-        },
-      }));
-
-    function getModalStyle() {
-        return {
-            top: '50%',
-            left: '55%',
-            transform: `translate(-50%, -55%)`,
-        };
-    }
 
     const createPost = async () => {
         setButtonLoading(true)
@@ -92,40 +73,14 @@ const ComposeHeader = props => {
         setFile(event.target.files[0])        
     }
 
-    const classes = useStyles();
+    const onProductClicked = (product) => {        
+        setEmbeddedProducts(prevArray => [...prevArray, product])
+        handleClose()
+    }
 
-    const body = (
-        <div style={modalStyle} className={classes.paper} >          
-          <p id="simple-modal-description">
-            Choose a product
-          </p>
-
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />
-          <ProductRow />          
-        </div>
-    );
+    const removeEmbeddedProduct = (clickedProduct) => {
+        setEmbeddedProducts(prevArray => prevArray.filter((product) => product._id !==  clickedProduct._id))
+    }
 
     return (
         
@@ -138,7 +93,16 @@ const ComposeHeader = props => {
                     value={content}
                     onChange={onContentChanged('inputText')}
                 />
-            </div>        
+            </div>
+
+            <div class="text-left">
+                {embeddedProducts && embeddedProducts.map((product) => {
+                    return <ProductRow 
+                        product={product}
+                        onProductClick={removeEmbeddedProduct}
+                        />
+                })}
+            </div>                    
 
             {fileLocalURL ? <div><img class="rounded-3xl mb-4 mx-auto" src={fileLocalURL} alt="uploadedImage"/></div> : null}       
 
@@ -170,11 +134,11 @@ const ComposeHeader = props => {
                     Post
                 </Button>
 
-                <Modal
-                    open={open}
-                    onClose={handleClose} >
-                    {body}
-                </Modal>
+                <EmbedProductModal 
+                    open={open}                 
+                    handleClose={handleClose}
+                    onProductClick={onProductClicked}
+                />
             </div>                        
         </div>
     );

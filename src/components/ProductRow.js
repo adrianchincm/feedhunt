@@ -4,16 +4,13 @@ import { useHistory } from "react-router-dom";
 
 const ProductRow = props => {
     
-    const history = useHistory();
-
-    const goToProductPage = (username) => {
-        // history.push(`/user/${username}`);
-    }
+    const history = useHistory(); 
 
     return (
         <div class={`flex flex-row justify-left cursor-pointer items-center py-4
         transition duration-300 ease-in-out hover:bg-bgPrimaryLighter 
-        ${props.isFeedView ? "border-b" : "border rounded-xl"} border-solid  border-dividerGray`}> 
+        ${props.isFeedView ? "border-b" : "border rounded-xl my-4"} border-solid  border-dividerGray`} 
+        onClick={() => props.onProductClick(props.product)}> 
              <img src={props.product.imageURL}                                     
                     alt="avatar"
                     class="w-96px ml-4 rounded-xl"
