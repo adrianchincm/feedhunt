@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import InputBase from '@material-ui/core/InputBase';
 import ImageIcon from '@material-ui/icons/Image';
-import IconButton from '@material-ui/core/IconButton';
+import Modal from '@material-ui/core/Modal';
+import ProductRow from './ProductRow';
+import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
@@ -15,6 +17,38 @@ const ComposeHeader = props => {
     const [buttonLoading, setButtonLoading] = useState(false)
     const [fileLocalURL, setFileLocalURL] = useState(null)
     const [file, setFile] = useState(null)
+    const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+
+    const useStyles = makeStyles((theme) => ({
+        paper: {
+          position: 'absolute',
+          width: 600,
+          height: 1000,
+          backgroundColor: '#282c34',
+          border: '2px solid #393f4a',
+          boxShadow: theme.shadows[5],
+          padding: theme.spacing(2, 4, 3),
+          overflow: 'auto'
+        },
+      }));
+
+    function getModalStyle() {
+        return {
+            top: '50%',
+            left: '55%',
+            transform: `translate(-50%, -55%)`,
+        };
+    }
 
     const createPost = async () => {
         setButtonLoading(true)
@@ -58,6 +92,41 @@ const ComposeHeader = props => {
         setFile(event.target.files[0])        
     }
 
+    const classes = useStyles();
+
+    const body = (
+        <div style={modalStyle} className={classes.paper} >          
+          <p id="simple-modal-description">
+            Choose a product
+          </p>
+
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />
+          <ProductRow />          
+        </div>
+    );
+
     return (
         
         <div class="p-4 border-solid border-b border-dividerGray">
@@ -75,12 +144,21 @@ const ComposeHeader = props => {
 
             <div class="flex text-right">
 
-                <div class="flex-1 pt-2">
+                <div class=" pt-2">
                     <label htmlFor="file-input">                    
                         <div class="flex cursor-pointer hover:bg-secondaryLight rounded-full w-8 h-8 justify-center items-center"><ImageIcon /></div>                                            
                     </label>
 
-                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>      
+                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>                    
+
+                    
+                </div>
+
+                <div class="flex-1 pt-2 ml-2">
+                
+                    <div class="flex cursor-pointer hover:bg-secondaryLight 
+                        rounded-full w-8 h-8 justify-center items-center" onClick={() => handleOpen()}><LibraryBooksSharpIcon /></div>                                                                                
+
                 </div>
 
                 <Button 
@@ -93,6 +171,12 @@ const ComposeHeader = props => {
                     onClick={() => createPost()}>
                     Post
                 </Button>
+
+                <Modal
+                    open={open}
+                    onClose={handleClose} >
+                    {body}
+                </Modal>
             </div>                        
         </div>
     );

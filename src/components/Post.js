@@ -2,6 +2,7 @@ import React from 'react'
 import avatar from '../images/user.png'
 import { timeSince } from '../shared/utility'
 import { useHistory } from "react-router-dom";
+import ProductPost from './ProductPost';
 
 const Post = props => {
     
@@ -32,7 +33,9 @@ const Post = props => {
                 {props.post.imageURL ? 
                     <img src={props.post.imageURL} 
                     class="rounded-3xl max-w-500px mb-4 w-full"
-                    alt="attachedImage"></img> : null }               
+                    alt="attachedImage"></img> : null }
+
+                <ProductPost />                   
             </div>
         </div>
     );
