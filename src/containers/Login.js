@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { defaultTheme } from '../styles/materialui';
 import {FormattedMessage} from 'react-intl';
 import {connect} from 'react-redux';
+import { LoginOutlined, LoadingOutlined } from '@ant-design/icons';
 import * as actions from '../store/actions/index'
 
 const Login = props => {
@@ -93,13 +94,25 @@ const Login = props => {
                           }
                         />
                     {error ? <p class="text-red-500">Incorrect username/email or password</p> : null}                       
-                </div>                
-                
-                <Button type="primary" shape="round" loading={loading} size="large" block onClick={() => onLoginClicked()}>
-                <FormattedMessage
+                </div>                                                
+
+                <Button 
+                    type="primary"
+                    shape="round"                         
+                    size="large"
+                    disabled={loading}                                                                                        
+                    onClick={() => onLoginClicked()}>
+                        <div class="flex items-center">
+                        {loading ? <LoadingOutlined /> : <LoginOutlined />}
+
+                        <div class="pl-2">
+                        <FormattedMessage
                         id="login"          
                     />
-                </Button>                        
+                        </div>                       
+                        
+                        </div>                                        
+                </Button>                                
                 
         </div>
         </ThemeProvider>

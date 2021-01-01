@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProductList from '../components/ProductList';
+import AddProductModal from '../components/AddProductModal';
 import { backButtonTheme } from '../styles/materialui'
 import { ThemeProvider } from '@material-ui/core/styles';
 import {FormattedMessage} from 'react-intl';
@@ -19,6 +20,8 @@ const Products = props => {
 
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState(null)
+    const [open, setOpen] = useState(false)
+    const [resetModal, setResetModal] = useState(false)
 
     useEffect(() => {
         getUserProducts()
@@ -33,9 +36,30 @@ const Products = props => {
         }                
     }
 
-    const openAddProductModal = () => {
-        
-    }
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+        setResetModal(!resetModal)
+    };
+    
+    const onAddProductButtonClicked = async (product) => {
+        console.log(product)
+        setLoading(true)
+        try {
+            await authApi(END_POINTS.products, {
+                method: HTTP_POST,
+                body: product
+            })
+            setLoading(false)
+            handleClose()
+            getUserProducts()                                 
+        } catch (e) {
+            console.log(e)
+        }    
+    };
 
     return (
         <ThemeProvider theme={backButtonTheme}>
@@ -59,7 +83,7 @@ const Products = props => {
                         type="primary"
                         shape="round"                         
                         size="large"                                                
-                        onClick={() => openAddProductModal()}>
+                        onClick={() => handleOpen()}>
                         <FormattedMessage
                             id="add-product"          
                         />
@@ -81,6 +105,14 @@ const Products = props => {
                     <CircularProgress />
                 </div>}
             </div>
+
+            <AddProductModal 
+                open={open} 
+                handleClose={handleClose} 
+                addProduct={onAddProductButtonClicked}
+                loading={loading}
+                reset={resetModal}
+                />
         </div>
         </ThemeProvider>
     )

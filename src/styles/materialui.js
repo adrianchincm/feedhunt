@@ -1,4 +1,4 @@
-import { createMuiTheme, withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import MuiSvgIcon from '@material-ui/core/SvgIcon';
 
@@ -89,4 +89,25 @@ export const SideBarButton = withStyles({
     },           
   },
 })(Button);
+
+export const modalStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 600,
+    height: 1000,
+    backgroundColor: '#282c34',
+    border: '2px solid #393f4a',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    overflow: 'auto'
+  },
+}));
+
+export function getModalStyle() {
+  return {
+      top: '50%',
+      left: '55%',
+      transform: `translate(-50%, -55%)`,
+  };
+}
 

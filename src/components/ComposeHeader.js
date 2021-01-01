@@ -149,9 +149,7 @@ const ComposeHeader = props => {
                         <div class="flex cursor-pointer hover:bg-secondaryLight rounded-full w-8 h-8 justify-center items-center"><ImageIcon /></div>                                            
                     </label>
 
-                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>                    
-
-                    
+                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>                                        
                 </div>
 
                 <div class="flex-1 pt-2 ml-2">
