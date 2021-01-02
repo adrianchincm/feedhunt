@@ -74,7 +74,7 @@ const AddProductModal = props => {
 
             <div class="flex">
                 <p class="flex-1 font-bold text-2xl">
-                    Add a new product
+                    <FormattedMessage id="add-a-new-product" />
                 </p>
             
                 <Button 
@@ -87,9 +87,7 @@ const AddProductModal = props => {
                         {props.loading ? <LoadingOutlined /> : <FileAddFilled />}
 
                         <div class="pl-2">
-                            <FormattedMessage
-                            id="add-product"          
-                            />
+                            <FormattedMessage id="add-product" />
                         </div>                       
                         
                         </div>                                        
@@ -100,8 +98,7 @@ const AddProductModal = props => {
             <div class="mt-4"><Input placeholder="Product title e.g. iPhone 12" onChange={onTitleChanged('inputText')}/></div>
             <div class="mt-4"><Input placeholder="Product description" onChange={onDescriptionChanged('inputText')}/></div>
 
-            <div class="mt-4 flex items-center w-48">
-                {/* <p class="mb-0 mr-2 text-xl">RM</p> */}
+            <div class="mt-4 flex items-center w-48">                
                 <TextField 
                     placeholder="Product price" 
                     onChange={onPriceChanged}                    
