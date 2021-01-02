@@ -15,10 +15,11 @@ import { HTTP_POST } from '../constants'
 const ProductDetailsModal = props => {    
     const [modalStyle] = useState(getModalStyle);
     const [showSnackbarBool, setShowSnackbarBool] = useState(false);
+    const [loading, setLoading] = useState(false);
     const classes = modalStyles();
 
     const addToCart = async () => {                   
-        console.log(props.product)
+        setLoading(true)
         const productObj = {
             product: props.product._id,
             quantity: 1,
@@ -30,7 +31,7 @@ const ProductDetailsModal = props => {
                 method: HTTP_POST,
                 body: JSON.stringify(productObj)
             })           
-            
+            setLoading(false)
             showSnackbar()
         } catch (e) {
             console.log(e)
@@ -60,10 +61,10 @@ const ProductDetailsModal = props => {
                     type="primary"
                     shape="round"                         
                     size="large"
-                    disabled={props.loading}                                                                                        
+                    disabled={loading}                                                                                        
                     onClick={() => onAddToCartClicked()}>
                         <div class="flex items-center">
-                        {props.loading ? <LoadingOutlined /> : <AddShoppingCartIcon />}
+                        {loading ? <LoadingOutlined /> : <AddShoppingCartIcon />}
 
                         <div class="pl-2">
                             <FormattedMessage id="add-to-cart" />

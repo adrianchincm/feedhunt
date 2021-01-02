@@ -23,7 +23,8 @@ const App = () => {
         <Route path = "/home" component={Home}></Route>        
         <Route path = "/profile" component={Home}></Route>
         <Route path = "/user/:username" component={Home}></Route>
-        <Route path = "/products" component={Home}></Route>   
+        <Route path = "/products" component={Home}></Route>
+        <Route path = "/cart" component={Home}></Route>        
       <Redirect to="/home" />
       </Switch>
     );

@@ -4,6 +4,7 @@ import Profile from '../containers/Profile'
 import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
 import Products from '../containers/Products'
+import Cart from "../containers/Cart";
 import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
@@ -52,6 +53,11 @@ const Home = props => {
             case '/products': {
                 return (                                    
                     <Products />
+                )
+            }
+            case '/cart': {
+                return (                                    
+                    <Cart />
                 )
             }
             default: return

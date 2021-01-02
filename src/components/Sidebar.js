@@ -3,6 +3,7 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { SideBarButton } from '../styles/materialui'
 import { authApi } from '../shared/api'
 import { HTTP_POST } from '../constants'
@@ -45,6 +46,12 @@ const Sidebar = props => {
         history.push(`/products`)
     }
 
+    const cart = () => {       
+        history.push(`/cart`)
+    }
+    
+    
+
     return (        
         <div class="p-8">            
            
@@ -83,16 +90,27 @@ const Sidebar = props => {
                     
                </SideBarButton>
             </div> : null}
-            
 
-            <div class="flex items-center mt-4">               
+            {props.user ? <div class="flex items-center mt-4">               
+               <SideBarButton               
+                startIcon={<ShoppingCartOutlinedIcon />}
+                onClick={() => cart()}
+                >
+                <div class={location.pathname === `/cart` ? "text-secondary" : null}>
+                    <FormattedMessage id="cart"/>
+                </div>
+                    
+               </SideBarButton>
+            </div> : null}            
+
+            {props.user ? <div class="flex items-center mt-4">               
                <SideBarButton               
                 startIcon={<ExitToAppOutlinedIcon />}
                 onClick={() => logout()}
                 >
                     <FormattedMessage id="logout"/>
-               </SideBarButton>
-            </div>
+               </SideBarButton> 
+            </div> : null}
 
             
         </div>
