@@ -3,6 +3,7 @@ import ComposeHeader from '../components/ComposeHeader'
 import Profile from '../containers/Profile'
 import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
+import Products from '../containers/Products'
 import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
@@ -27,7 +28,7 @@ const Home = props => {
                 const path = props.location.pathname
                 const username = path.substring(path.lastIndexOf('/') + 1)
                 return (                
-                    <Profile goBack={props.history.goBack} username={username}/>
+                    <Profile username={username}/>
                 )
             }
 
@@ -42,7 +43,12 @@ const Home = props => {
             }            
             case '/profile': {
                 return (                
-                    <Profile goBack={props.history.goBack} username={props.user.username}/>
+                    <Profile username={props.user.username}/>
+                )
+            }
+            case '/products': {
+                return (                                    
+                    <Products />
                 )
             }
             default: return

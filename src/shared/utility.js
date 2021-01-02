@@ -1,3 +1,5 @@
+import NumberFormat from 'react-number-format';
+
 export const updateObject = (oldObject, updatedProperties) => {
     return {
         ...oldObject,
@@ -43,3 +45,24 @@ export function monthYearDate(date) {
 
     return `${month} ${year}`
 }
+
+export function NumberFormatCustom(props) {
+    const { inputRef, onChange, ...other } = props;
+      
+    return (
+      <NumberFormat
+        {...other}
+        getInputRef={inputRef}
+        onValueChange={(values) => {
+          onChange({
+            target: {              
+              value: values.value,
+            },
+          });
+        }}
+        thousandSeparator
+        isNumericString
+        prefix="RM "
+      />
+    );
+  }

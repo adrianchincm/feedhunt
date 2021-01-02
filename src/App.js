@@ -23,6 +23,7 @@ const App = () => {
         <Route path = "/home" component={Home}></Route>        
         <Route path = "/profile" component={Home}></Route>
         <Route path = "/user/:username" component={Home}></Route>
+        <Route path = "/products" component={Home}></Route>   
       <Redirect to="/home" />
       </Switch>
     );
@@ -32,7 +33,8 @@ const App = () => {
           <Route path = "/home" exact component={Home}></Route>
           <Route path = "/login" exact component={Login}></Route>      
           <Route path = "/signup" exact component={Signup}></Route>
-          <Route path = "/user/:username" component={Home}></Route>   
+          <Route path = "/user/:username" component={Home}></Route>
+          <Route path = "/products" component={Home}></Route>          
           <Route path = "/" exact component={LandingPage}></Route>       
           <Redirect to="/" />
         </Switch>

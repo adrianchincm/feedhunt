@@ -2,6 +2,7 @@ import React from 'react'
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 import { SideBarButton } from '../styles/materialui'
 import { authApi } from '../shared/api'
 import { HTTP_POST } from '../constants'
@@ -40,6 +41,10 @@ const Sidebar = props => {
         history.push(`/user/${props.user.username}`)
    }
 
+   const products = () => {       
+        history.push(`/products`)
+    }
+
     return (        
         <div class="p-8">            
            
@@ -62,6 +67,18 @@ const Sidebar = props => {
                 >
                 <div class={location.pathname === `/user/${props.user.username}` ? "text-secondary" : null}>
                     <FormattedMessage id="profile"/>
+                </div>
+                    
+               </SideBarButton>
+            </div> : null}
+
+            {props.user ? <div class="flex items-center mt-4">               
+               <SideBarButton               
+                startIcon={<LibraryBooksSharpIcon />}
+                onClick={() => products()}
+                >
+                <div class={location.pathname === `/products` ? "text-secondary" : null}>
+                    <FormattedMessage id="products"/>
                 </div>
                     
                </SideBarButton>

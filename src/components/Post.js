@@ -2,6 +2,7 @@ import React from 'react'
 import avatar from '../images/user.png'
 import { timeSince } from '../shared/utility'
 import { useHistory } from "react-router-dom";
+import ProductPost from './ProductPost';
 
 const Post = props => {
     
@@ -12,7 +13,7 @@ const Post = props => {
     }
 
     return (
-        <div class="flex flex-row justify-left p-2 cursor-pointer items-start
+        <div class="flex flex-row justify-left p-2 cursor-pointer items-start py-4
         transition duration-300 ease-in-out hover:bg-bgPrimaryLight 
         border-solid border-b border-dividerGray">
              <img src={props.post.owner.avatar || avatar}                                     
@@ -29,10 +30,18 @@ const Post = props => {
                 </div>               
                 
                 <p class="">{props.post.content}</p>
-                {props.post.imageURL ? 
-                    <img src={props.post.imageURL} 
-                    class="rounded-3xl max-w-500px mb-4 w-full"
-                    alt="attachedImage"></img> : null }               
+
+                <div class="space-y-4">
+                    {props.post.imageURL ? 
+                        <img src={props.post.imageURL} 
+                        class="rounded-3xl max-w-500px w-full"
+                        alt="attachedImage"></img> : null }
+
+                    {props.post.products.map((product) => {
+                        return <ProductPost product={product} />       
+                    })}       
+                </div>
+                
             </div>
         </div>
     );

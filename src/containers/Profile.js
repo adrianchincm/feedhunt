@@ -12,12 +12,15 @@ import { backButtonTheme } from '../styles/materialui'
 import {FormattedMessage} from 'react-intl';
 import { monthYearDate } from '../shared/utility'
 import { CheckOutlined } from '@ant-design/icons';
+import { useHistory } from "react-router-dom";
 import avatar from '../images/user.png'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as actions from '../store/actions/index'
 
 
 const Profile = props => {
+
+    const history = useHistory();
 
     const [userProfile, setUserProfile] = useState(null)
     const [isFollowing, setIsFollowing] = useState(null)
@@ -81,7 +84,7 @@ const Profile = props => {
         <ThemeProvider theme={backButtonTheme}>
         <div class="border-solid">
             <div class="p-4 flex sticky top-0 bg-bgPrimary z-10 items-center border-solid border-b border-dividerGray">
-                <IconButton aria-label="delete" onClick={() => props.goBack()}>
+                <IconButton aria-label="delete" onClick={() => history.goBack()}>
                     <ArrowBackIcon />
                 </IconButton>
 

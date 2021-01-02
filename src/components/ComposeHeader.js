@@ -1,27 +1,45 @@
 import React, {useState} from 'react'
 import InputBase from '@material-ui/core/InputBase';
 import ImageIcon from '@material-ui/icons/Image';
-import IconButton from '@material-ui/core/IconButton';
+import EmbedProductModal from './EmbedProductModal'
+import Modal from '@material-ui/core/Modal';
+import ProductRow from './ProductRow';
+import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
+import { modalStyles, getModalStyle } from '../styles/materialui'
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST }  from '../constants'
+import { FormattedMessage } from 'react-intl';
 
 const ComposeHeader = props => {
 
     const [content, setContent] = useState('')
     const [buttonLoading, setButtonLoading] = useState(false)
     const [fileLocalURL, setFileLocalURL] = useState(null)
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(null)    
+    const [open, setOpen] = useState(false);
+    const [embeddedProducts, setEmbeddedProducts] = useState([]);
+
+    const handleOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
 
     const createPost = async () => {
         setButtonLoading(true)
 
+        const embeddedProductsID = embeddedProducts.map((product) => product._id)        
+
         var postObj = {
             content,
-            image: file
+            image: file,
+            ...(embeddedProductsID.length !== 0 && { products: embeddedProductsID })
         }
 
         try {
@@ -43,6 +61,7 @@ const ComposeHeader = props => {
         setContent('')
         setFile(null)
         setFileLocalURL(null)
+        setEmbeddedProducts([])
         URL.revokeObjectURL(file)
     }
 
@@ -58,6 +77,15 @@ const ComposeHeader = props => {
         setFile(event.target.files[0])        
     }
 
+    const onProductClicked = (product) => {        
+        setEmbeddedProducts(prevArray => [...prevArray, product])
+        handleClose()
+    }
+
+    const removeEmbeddedProduct = (clickedProduct) => {
+        setEmbeddedProducts(prevArray => prevArray.filter((product) => product._id !==  clickedProduct._id))
+    }
+
     return (
         
         <div class="p-4 border-solid border-b border-dividerGray">
@@ -69,18 +97,34 @@ const ComposeHeader = props => {
                     value={content}
                     onChange={onContentChanged('inputText')}
                 />
-            </div>        
+            </div>
+
+            <div class="text-left">
+                {embeddedProducts && embeddedProducts.map((product) => {
+                    return <ProductRow 
+                        product={product}
+                        onProductClick={removeEmbeddedProduct}
+                        />
+                })}
+            </div>                    
 
             {fileLocalURL ? <div><img class="rounded-3xl mb-4 mx-auto" src={fileLocalURL} alt="uploadedImage"/></div> : null}       
 
             <div class="flex text-right">
 
-                <div class="flex-1 pt-2">
+                <div class=" pt-2">
                     <label htmlFor="file-input">                    
                         <div class="flex cursor-pointer hover:bg-secondaryLight rounded-full w-8 h-8 justify-center items-center"><ImageIcon /></div>                                            
                     </label>
 
-                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>      
+                    <input id="file-input" class="hidden" type="file" onChange={handleChange}/>                                        
+                </div>
+
+                <div class="flex-1 pt-2 ml-2">
+                
+                    <div class="flex cursor-pointer hover:bg-secondaryLight 
+                        rounded-full w-8 h-8 justify-center items-center" onClick={() => handleOpen()}><LibraryBooksSharpIcon /></div>                                                                                
+
                 </div>
 
                 <Button 
@@ -93,6 +137,12 @@ const ComposeHeader = props => {
                     onClick={() => createPost()}>
                     Post
                 </Button>
+
+                <EmbedProductModal 
+                    open={open}                 
+                    handleClose={handleClose}
+                    onProductClick={onProductClicked}
+                />
             </div>                        
         </div>
     );
