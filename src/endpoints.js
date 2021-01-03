@@ -16,4 +16,5 @@ export const END_POINTS = {
     deleteCartItem({ itemId }) {
         return `/cart/${itemId}`;
     },
+    recommended: `/recommended`,
 }

@@ -110,9 +110,7 @@ const Sidebar = props => {
                 >
                     <FormattedMessage id="logout"/>
                </SideBarButton> 
-            </div> : null}
-
-            
+            </div> : null}            
         </div>
     );
 }
