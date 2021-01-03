@@ -8,6 +8,7 @@ import Cart from "../containers/Cart";
 import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
+import RecommendedUsers from '../components/RecommendedUsers'
 
 const Home = props => {
 
@@ -67,8 +68,9 @@ const Home = props => {
     return (
         <div class="flex justify-center items-start">
             
-            <div class="sticky top-0">
+            <div class="sticky top-0 w-300px">
                 <Sidebar refreshFeed={fetchPosts} />
+                <RecommendedUsers />                
             </div>
 
             <div class="w-600px border-solid border-l border-r border-dividerGray min-h-screen ">
