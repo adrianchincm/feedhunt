@@ -42,10 +42,12 @@ const ComposeHeader = props => {
             ...(embeddedProductsID.length !== 0 && { products: embeddedProductsID })
         }
 
+        // const postObj2 = file ? postObj : JSON.stringify(postObj)
+
         try {
             await authApi(END_POINTS.create_post, {
                 method: HTTP_POST,
-                body: postObj
+                body: file ? postObj : JSON.stringify(postObj)
             })
 
             setButtonLoading(false)

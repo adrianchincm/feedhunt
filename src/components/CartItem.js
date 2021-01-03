@@ -17,6 +17,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
     const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [quantity, setQuantity] = useState(item.quantity)
+    const [subtotal, setSubtotal] = useState(item.total)
     const ProductDetailsModal = React.lazy(() => import('./ProductDetailsModal'));
 
     const onChangeQuantity = async (type) => {                   
@@ -35,6 +36,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
             setLoading(false)
             const updatedItem = cart.items.find(arrayItem => arrayItem._id === item._id)
             setQuantity(updatedItem.quantity)
+            setSubtotal(updatedItem.total)
 
         } catch (e) {
             console.log(e)
@@ -93,7 +95,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
                         >
                         {product.title}
                     </p>
-                    <p class="mb-0 text-green">RM {product.price}</p>
+                    <p class="mb-0 text-green">RM {product.price.toFixed(2)}</p>
                 </div>
 
                 <div class="flex items-center">
@@ -122,7 +124,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
             <div class="flex flex-row ml-4 mt-2">
                 <p class="mb-0">
                     <span class="text-textgray font-medium"><FormattedMessage id="subtotal" ß/> : </span>
-                    RM {item.total.toFixed(2)}
+                    RM {subtotal.toFixed(2)}
                 </p>
             </div>
             </div>
