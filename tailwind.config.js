@@ -24,13 +24,15 @@ module.exports = {
     },
     extend: {
       width: {
-        '600px': '600px',
-        '500px': '500px',
+        '30px': '30px',
         '50px': '50px',
+        '96px': '96px',
         '130px': '130px',
-        '96px': '96px'
+        '500px': '500px',
+        '600px': '600px',              
       },
       height: {        
+        '30px': '30px',
         '50px': '50px',
         '130px': '130px',
         '265px': '265px'

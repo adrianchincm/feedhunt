@@ -57,7 +57,7 @@ const ProductDetailsModal = props => {
                     {props.product.title}
                 </p>
             
-                <Button 
+                {props.showAddToCartButton ? <Button 
                     type="primary"
                     shape="round"                         
                     size="large"
@@ -71,7 +71,7 @@ const ProductDetailsModal = props => {
                         </div>                       
                         
                         </div>                                        
-                </Button>                    
+                </Button> : null}
             </div>
 
             <div class="mt-4"><img class="rounded-3xl mb-4 m-0" src={props.product.imageURL} alt="uploadedImage"/></div>

@@ -36,6 +36,7 @@ const App = () => {
           <Route path = "/signup" exact component={Signup}></Route>
           <Route path = "/user/:username" component={Home}></Route>
           <Route path = "/products" component={Home}></Route>          
+          <Route path = "/cart" component={Home}></Route>
           <Route path = "/" exact component={LandingPage}></Route>       
           <Redirect to="/" />
         </Switch>

@@ -17,5 +17,9 @@
     "add-a-new-product": "Add a new product",
     "add-to-cart": "Add to cart",
     "added-to-cart": "Added to cart!",
-    "cart": "Cart"
+    "cart": "Cart",
+    "subtotal": "Subtotal",
+    "your-products": "Your products",
+    "items": "item(s)"
+    
 }

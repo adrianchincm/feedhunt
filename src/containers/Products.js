@@ -72,7 +72,7 @@ const Products = props => {
                 
                 <div class="flex flex-1 items-center">
                     
-                    <p class="mb-0 ml-4 font-bold text-xl">Your products</p>
+                <p class="mb-0 ml-4 font-bold text-xl"><FormattedMessage id="your-products" /></p>
                     {products ? <p class="mb-0 ml-4 text-textgray">{products.length} products</p> : null}
                                                              
                 </div>

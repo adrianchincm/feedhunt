@@ -38,7 +38,12 @@ const ProductPost = props => {
         </div>
 
             <Suspense fallback={<div>Loading...</div>}>
-                <ProductDetailsModal open={openProductDetailsModal} handleClose={handleClose} product={props.product} /> 
+                <ProductDetailsModal 
+                    open={openProductDetailsModal} 
+                    handleClose={handleClose} 
+                    product={props.product}
+                    showAddToCartButton={true}
+                    /> 
             </Suspense>
         </div>
        
