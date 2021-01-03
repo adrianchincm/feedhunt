@@ -20,7 +20,7 @@ const RecommendedUsers = props => {
 
     
     const usersToDisplay = users.map((user) => {
-        if (user._id !== props.user._id && !props.user.following.includes(user._id) ) {                    
+        if (props.user && user._id !== props.user._id && !props.user.following.includes(user._id) ) {                    
             return <RecommendedUsersRow userId={user._id} userAvatar={user.avatar} username={user.username} displayname={user.displayname}/>                             
         } else {
             return null
