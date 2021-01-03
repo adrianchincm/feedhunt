@@ -23,17 +23,17 @@ const LandingPage = props => {
                 <div class="mx-auto">
                     <div class="flex">
                         <SearchIcon />
-                        <p class="font-bold text-xl ml-2">Find the best deals</p>
+                        <p class="font-bold text-xl ml-2 mb-4">Find the best deals</p>
                     </div>
 
                     <div class="flex">
                         <ShareIcon />
-                        <p class="font-bold text-xl ml-2">Share your own discoveries</p>
+                        <p class="font-bold text-xl ml-2 mb-4">Share your own discoveries</p>
                     </div>
 
                     <div class="flex">
                         <DynamicFeedIcon />
-                        <p class="font-bold text-xl ml-2">Get the latest updates</p>
+                        <p class="font-bold text-xl ml-2 mb-4">Get the latest updates</p>
                     </div>                                                
                 </div>                
             </div>

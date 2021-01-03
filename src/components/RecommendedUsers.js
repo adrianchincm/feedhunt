@@ -8,7 +8,6 @@ import {connect} from 'react-redux';
 const RecommendedUsers = props => {
 
     const [users, setUsers] = useState([])
-    const [loadHeader, setLoadHeader] = useState(false)
 
     useEffect(() => {
         getRecommendedUsers()
@@ -27,8 +26,6 @@ const RecommendedUsers = props => {
             return null
         }                
     })
-
-    
 
     return (
         <div class="flex flex-col width-500px mr-4 bg-bgPrimaryLight rounded-3xl">

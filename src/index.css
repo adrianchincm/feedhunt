@@ -4,7 +4,6 @@
 
 @layer base {
     p {
-      @apply text-white;
-      @apply text-base;
+      @apply text-white mb-4;            
     }
   }
