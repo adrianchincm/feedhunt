@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Modal from '@material-ui/core/Modal';
 import Snackbar from './Snackbar';
-import ProductList from './ProductList'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { useHistory } from "react-router-dom";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { LoadingOutlined } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
@@ -13,10 +12,25 @@ import { END_POINTS }  from '../endpoints'
 import { HTTP_POST } from '../constants'
 
 const ProductDetailsModal = props => {    
-    const [modalStyle] = useState(getModalStyle);
-    const [showSnackbarBool, setShowSnackbarBool] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const classes = modalStyles();
+    const [modalStyle] = useState(getModalStyle)
+    const [showSnackbarBool, setShowSnackbarBool] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const classes = modalStyles()
+    const history = useHistory()
+
+    const goToCart = () => {
+        history.push('/cart')
+    }
+
+    const snackbarMessage = (
+        <div class="flex items-center">
+            <FormattedMessage id="added-to-cart" />
+
+            <p class="ml-2 underline text-sm cursor-pointer font-medium mb-0" onClick={() => goToCart()}>
+                View cart
+            </p>
+        </div>        
+      );
 
     const addToCart = async () => {                   
         setLoading(true)
@@ -81,9 +95,9 @@ const ProductDetailsModal = props => {
             <p class="text-textgray">{props.product.description}</p>
 
             <Snackbar
-                message={<FormattedMessage id="added-to-cart" />}
+                message={snackbarMessage}
                 open={showSnackbarBool}
-                handleClose={hideSnackbar}
+                handleClose={hideSnackbar}                
                 type="success"
             />
         </div>
