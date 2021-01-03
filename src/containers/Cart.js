@@ -28,7 +28,7 @@ const Cart = props => {
         }                
     }
 
-    const deleteCartItem = (updatedCart) => {        
+    const setUpdatedCart = (updatedCart) => {        
         setCart(updatedCart);
     } 
 
@@ -53,7 +53,7 @@ const Cart = props => {
             {cart ? 
                 <div class="mt-4">
                     {cart.items && cart.items.map((item, i) => {
-                        return <CartItem item={item} key={item._id} index={i} deleteCartItem={deleteCartItem}/>
+                        return <CartItem item={item} key={item._id} index={i} setUpdatedCart={setUpdatedCart}/>
                     })}
                 </div> : <div class="mt-4"><CircularProgress /></div>}
 

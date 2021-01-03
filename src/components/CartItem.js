@@ -12,13 +12,11 @@ import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST, HTTP_DELETE, INCREMENT, DECREMENT } from '../constants'
 
-const CartItem = ({item, deleteCartItem, index, item: { product }, item: { product: {owner} } },) => {
+const CartItem = ({item, setUpdatedCart, index, item: { product }, item: { product: {owner} } },) => {
 
     const history = useHistory()
     const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [quantity, setQuantity] = useState(item.quantity)
-    const [subtotal, setSubtotal] = useState(item.total)
     const ProductDetailsModal = React.lazy(() => import('./ProductDetailsModal'));
 
     const onChangeQuantity = async (type) => {                   
@@ -30,14 +28,12 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
         }        
 
         try {
-            const cart = await authApi(END_POINTS.cart, {
+            const updatedCart = await authApi(END_POINTS.cart, {
                 method: HTTP_POST,
                 body: JSON.stringify(productObj)
             })           
             setLoading(false)
-            const updatedItem = cart.items.find(arrayItem => arrayItem._id === item._id)
-            setQuantity(updatedItem.quantity)
-            setSubtotal(updatedItem.total)
+            setUpdatedCart(updatedCart)
 
         } catch (e) {
             console.log(e)
@@ -70,7 +66,7 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
             const updatedCart = await authApi(END_POINTS.deleteCartItem({ itemId }), {
                 method: HTTP_DELETE                
             })           
-            deleteCartItem(updatedCart)
+            setUpdatedCart(updatedCart)
         } catch (e) {
             console.log(e)
         }            
@@ -129,7 +125,7 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
                         <AddIcon />
                     </IconButton>
 
-                    <p class="mb-0">{quantity}</p>
+                    <p class="mb-0">{item.quantity}</p>
 
                     <IconButton                        
                         onClick={() => onDecrementClicked()}
@@ -145,7 +141,7 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
             <div class="flex flex-row ml-4 mt-2">
                 <p class="mb-0">
                     <span class="text-textgray font-medium"><FormattedMessage id="subtotal" ß/> : </span>
-                    RM {subtotal.toFixed(2)}
+                    RM {item.total.toFixed(2)}
                 </p>
             </div>
             </div>
