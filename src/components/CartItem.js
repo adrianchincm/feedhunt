@@ -3,15 +3,16 @@ import avatar from '../images/user.png'
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useHistory } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core/styles';
 import { backButtonTheme } from '../styles/materialui';
 import { FormattedMessage } from 'react-intl';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
-import { HTTP_POST, INCREMENT, DECREMENT } from '../constants'
+import { HTTP_POST, HTTP_DELETE, INCREMENT, DECREMENT } from '../constants'
 
-const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
+const CartItem = ({item, deleteCartItem, index, item: { product }, item: { product: {owner} } },) => {
 
     const history = useHistory()
     const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
@@ -63,24 +64,48 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
         onChangeQuantity(DECREMENT)
     }
 
+    const onDeleteItemClicked = async () => {
+        // deleteItem
+        const itemId = item._id
+        try {
+            const updatedCart = await authApi(END_POINTS.deleteCartItem({ itemId }), {
+                method: HTTP_DELETE                
+            })           
+            deleteCartItem(updatedCart)
+        } catch (e) {
+            console.log(e)
+        }    
+        
+    }
+
     return (
         <ThemeProvider theme={backButtonTheme}>
         <div>            
         
-        {product && <div class={`flex flex-col justify-left py-4 mb-4
+        {product && <div class={`flex flex-col justify-left pb-4 pt-2 mb-4
         transition duration-300 ease-in-out 
         border-b border-t border-solid  border-dividerGray`} 
         >
-            <div class="flex items-center border-b border-solid border-dividerGray pb-4">
+            <div class="flex text-left item-start border-b border-solid border-dividerGray ">
+                <div class="flex flex-1 my-auto">
                 <img src={owner.avatar || avatar}                                     
                     alt="avatar"
-                    class="w-30px ml-4 rounded-full"
+                    class="w-30px h-30px ml-4 rounded-full"
                     />
 
                 <p class="ml-4 mb-0 font-medium hover:underline cursor-pointer"
                     onClick={() => onSellerClicked()}>
                         {owner.username}
                 </p>
+                </div>
+
+                <IconButton                        
+                    onClick={() => onDeleteItemClicked()}
+                    disabled={loading}
+                    >
+                    <DeleteIcon />
+                </IconButton>
+
             </div>
 
             <div class="flex text-left mt-4 ">
@@ -99,8 +124,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
                 </div>
 
                 <div class="flex items-center">
-                    <IconButton
-                        aria-label="toggle password visibility"
+                    <IconButton                        
                         onClick={() => onIncrementClicked()}
                         disabled={loading}
                         >
@@ -109,8 +133,7 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
 
                     <p class="mb-0">{quantity}</p>
 
-                    <IconButton
-                        aria-label="toggle password visibility"
+                    <IconButton                        
                         onClick={() => onDecrementClicked()}
                         disabled={loading}
                         >

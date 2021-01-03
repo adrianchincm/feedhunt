@@ -76,7 +76,7 @@ const ProductDetailsModal = props => {
 
             <div class="mt-4"><img class="rounded-3xl mb-4 m-0" src={props.product.imageURL} alt="uploadedImage"/></div>
 
-            <p class="text-green">RM {props.product.price}</p>
+            <p class="text-green">RM {props.product.price.toFixed(2)}</p>
 
             <p class="text-textgray">{props.product.description}</p>
 

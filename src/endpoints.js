@@ -13,4 +13,7 @@ export const END_POINTS = {
     },
     products: `/products`,
     cart: `/cart`,
+    deleteCartItem({ itemId }) {
+        return `/cart/${itemId}`;
+    },
 }

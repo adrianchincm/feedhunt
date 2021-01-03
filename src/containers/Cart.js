@@ -28,6 +28,10 @@ const Cart = props => {
         }                
     }
 
+    const deleteCartItem = (updatedCart) => {        
+        setCart(updatedCart);
+    }
+
     return (
         <ThemeProvider theme={backButtonTheme}>
         <div>
@@ -46,12 +50,12 @@ const Cart = props => {
                                     
             </div>
 
-            {cart && 
+            {cart ? 
                 <div class="mt-4">
-                    {cart.items.map((item) => {
-                        return <CartItem item={item} key={item._id} />
+                    {cart.items && cart.items.map((item, i) => {
+                        return <CartItem item={item} key={item._id} index={i} deleteCartItem={deleteCartItem}/>
                     })}
-                </div>}
+                </div> : <div class="mt-4"><CircularProgress /></div>}
         </div>
         </ThemeProvider>
     )
