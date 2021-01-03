@@ -64,8 +64,7 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
         onChangeQuantity(DECREMENT)
     }
 
-    const onDeleteItemClicked = async () => {
-        // deleteItem
+    const onDeleteItemClicked = async () => {        
         const itemId = item._id
         try {
             const updatedCart = await authApi(END_POINTS.deleteCartItem({ itemId }), {
@@ -74,8 +73,7 @@ const CartItem = ({item, deleteCartItem, index, item: { product }, item: { produ
             deleteCartItem(updatedCart)
         } catch (e) {
             console.log(e)
-        }    
-        
+        }            
     }
 
     return (

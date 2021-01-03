@@ -30,7 +30,7 @@ const Cart = props => {
 
     const deleteCartItem = (updatedCart) => {        
         setCart(updatedCart);
-    }
+    } 
 
     return (
         <ThemeProvider theme={backButtonTheme}>
@@ -48,7 +48,7 @@ const Cart = props => {
                                                              
                 </div>                                
                                     
-            </div>
+            </div>          
 
             {cart ? 
                 <div class="mt-4">
@@ -56,6 +56,14 @@ const Cart = props => {
                         return <CartItem item={item} key={item._id} index={i} deleteCartItem={deleteCartItem}/>
                     })}
                 </div> : <div class="mt-4"><CircularProgress /></div>}
+
+                <div class="p-4 box-border w-598px flex fixed bottom-0 bg-bgPrimary z-10 items-center border-solid border-t border-dividerGray">               
+                    <div class="flex flex-1 items-center">                        
+                        <p class="mb-0 ml-4 font-medium text-xl text-textgray"><FormattedMessage id="cart-total" /> : </p>
+                        {cart ? <p class="mb-0 ml-4 text-xl font-bold">RM {cart.grandTotal.toFixed(2)}</p> : null}
+                                                                
+                    </div>                                                                    
+                </div>    
         </div>
         </ThemeProvider>
     )

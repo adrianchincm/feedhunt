@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Suspense} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -22,6 +22,9 @@ const Products = props => {
     const [products, setProducts] = useState(null)
     const [open, setOpen] = useState(false)
     const [resetModal, setResetModal] = useState(false)
+    const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
+    const [clickedProduct, setClickedProduct] = useState(null)
+    const ProductDetailsModal = React.lazy(() => import('../components/ProductDetailsModal'));
 
     useEffect(() => {
         getUserProducts()
@@ -34,6 +37,11 @@ const Products = props => {
         } catch (e) {
             console.log(e)
         }                
+    }
+
+    const onProductRowClicked = (product) => {
+        setClickedProduct(product)
+        openProductDetails()
     }
 
     const handleOpen = () => {
@@ -59,6 +67,14 @@ const Products = props => {
         } catch (e) {
             console.log(e)
         }    
+    };
+
+    const openProductDetails = () => {
+        setOpenProductDetailsModal(true)
+    }
+
+    const handleCloseProductDetails = () => {          
+        setOpenProductDetailsModal(false);        
     };
 
     return (
@@ -98,7 +114,7 @@ const Products = props => {
                     <div>
                         {products.length === 0 ? 
                         <p class="text-textgray mt-4">You have no products added</p> 
-                        : <ProductList products={products} isFeedView />}                        
+                        : <ProductList products={products} onProductClick={onProductRowClicked} isFeedView />}                        
                     </div>
                 : 
                 <div class="mt-4">
@@ -113,6 +129,15 @@ const Products = props => {
                 loading={loading}
                 reset={resetModal}
                 />
+
+            {clickedProduct ? <Suspense fallback={<div>Loading...</div>}>
+                <ProductDetailsModal 
+                    open={openProductDetailsModal} 
+                    handleClose={handleCloseProductDetails} 
+                    product={clickedProduct}
+                    showAddToCartButton={false}
+                    /> 
+            </Suspense> : null}
         </div>
         </ThemeProvider>
     )
