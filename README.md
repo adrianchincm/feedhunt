@@ -42,6 +42,31 @@ NodeJS application is hosted on Heroku
 MongoDB is hosted by MongoDB Atlas  
 AWS S3 for image uploads
 
+## Current progress
 
+### Phase 1 **(DONE)**  
+Setup user and post models   
+Allow user to make a post and read it    
 
+### Phase 2 **(DONE)**   
+Users can view another user's profile + posts  
+Users can follow/unfollow another user  
+Users can view followed users' posts in their feed  
 
+### Phase 3 **(DONE)**   
+Users can upload images in their post  
+Introduction of product model  
+User can create and view their own products  
+User can embed products on their posts  
+All users can view product details from embedded product  
+
+### Phase 4 **(DONE)**   
+Users have a cart feature  
+Users can add/remove products into their cart  
+
+Phase 4.1 : Added recommended users section **(DONE)**  
+
+### Phase 5  
+Integrate Stripe payment  
+Users can enter delivery details before checkout  
+Users can view their orders
