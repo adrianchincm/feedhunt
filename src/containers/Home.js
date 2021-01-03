@@ -4,6 +4,7 @@ import Profile from '../containers/Profile'
 import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
 import Products from '../containers/Products'
+import Cart from "../containers/Cart";
 import {connect} from 'react-redux';
 import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
@@ -17,9 +18,12 @@ const Home = props => {
     const [posts, setPosts] = useState(null);
 
     const fetchPosts = async () => {
-        const posts = await authApi(END_POINTS.following_posts)
-        
-        setPosts(posts)
+        try {
+            const posts = await authApi(END_POINTS.following_posts)
+            setPosts(posts)
+        } catch (e) {
+            setPosts([])
+        }                        
     }
 
     const componentRouter = () => {
@@ -49,6 +53,11 @@ const Home = props => {
             case '/products': {
                 return (                                    
                     <Products />
+                )
+            }
+            case '/cart': {
+                return (                                    
+                    <Cart />
                 )
             }
             default: return

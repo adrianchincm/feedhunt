@@ -15,6 +15,11 @@
     "product-picture": "Product picture",
     "choose-a-product": "Choose a product",
     "add-a-new-product": "Add a new product",
-    "add-to-cart": "Add to cart"
-    
+    "add-to-cart": "Add to cart",
+    "added-to-cart": "Added to cart!",
+    "cart": "Cart",
+    "subtotal": "Subtotal",
+    "your-products": "Your products",
+    "cart-total": "Cart total",
+    "product-added": "Product added!"
 }

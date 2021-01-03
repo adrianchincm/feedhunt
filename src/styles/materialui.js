@@ -59,6 +59,27 @@ export const backButtonTheme = createMuiTheme({
   },    
 });
 
+export const whiteButtonTheme = createMuiTheme({
+  overrides: {
+    // Style sheet name ⚛️
+    MuiSvgIcon: {
+      root: {
+          fill: '#fff',   
+      }        
+    },
+    MuiIconButton: {
+      root: {        
+        '&:hover': {
+          backgroundColor: "rgba(0, 0, 0, 0.1)"            
+        },
+        '&:focus': {
+          outline: 'none',
+        }, 
+      }
+    },   
+  },    
+});
+
 export const SideBarButton = withStyles({
   root: {
     boxShadow: 'none',

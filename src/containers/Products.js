@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, Suspense} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProductList from '../components/ProductList';
 import AddProductModal from '../components/AddProductModal';
-import { backButtonTheme } from '../styles/materialui'
+import Snackbar from '../components/Snackbar';
+import { backButtonTheme, whiteButtonTheme } from '../styles/materialui'
 import { ThemeProvider } from '@material-ui/core/styles';
 import {FormattedMessage} from 'react-intl';
 import { authApi } from '../shared/api'
@@ -22,6 +23,10 @@ const Products = props => {
     const [products, setProducts] = useState(null)
     const [open, setOpen] = useState(false)
     const [resetModal, setResetModal] = useState(false)
+    const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
+    const [clickedProduct, setClickedProduct] = useState(null)
+    const [showSnackbar, setShowSnackbar] = useState(false)
+    const ProductDetailsModal = React.lazy(() => import('../components/ProductDetailsModal'));
 
     useEffect(() => {
         getUserProducts()
@@ -34,6 +39,11 @@ const Products = props => {
         } catch (e) {
             console.log(e)
         }                
+    }
+
+    const onProductRowClicked = (product) => {
+        setClickedProduct(product)
+        openProductDetails()
     }
 
     const handleOpen = () => {
@@ -55,11 +65,24 @@ const Products = props => {
             })
             setLoading(false)
             handleClose()
-            getUserProducts()                                 
+            getUserProducts()
+            setShowSnackbar(true)
         } catch (e) {
             console.log(e)
         }    
     };
+
+    const openProductDetails = () => {
+        setOpenProductDetailsModal(true)
+    }
+
+    const handleCloseProductDetails = () => {          
+        setOpenProductDetailsModal(false);        
+    };
+
+    const hideSnackbar = () => {
+        setShowSnackbar(false)
+    };  
 
     return (
         <ThemeProvider theme={backButtonTheme}>
@@ -72,7 +95,7 @@ const Products = props => {
                 
                 <div class="flex flex-1 items-center">
                     
-                    <p class="mb-0 ml-4 font-bold text-xl">Your products</p>
+                <p class="mb-0 ml-4 font-bold text-xl"><FormattedMessage id="your-products" /></p>
                     {products ? <p class="mb-0 ml-4 text-textgray">{products.length} products</p> : null}
                                                              
                 </div>
@@ -98,7 +121,7 @@ const Products = props => {
                     <div>
                         {products.length === 0 ? 
                         <p class="text-textgray mt-4">You have no products added</p> 
-                        : <ProductList products={products} isFeedView />}                        
+                        : <ProductList products={products} onProductClick={onProductRowClicked} isFeedView />}                        
                     </div>
                 : 
                 <div class="mt-4">
@@ -113,6 +136,24 @@ const Products = props => {
                 loading={loading}
                 reset={resetModal}
                 />
+
+            {clickedProduct ? <Suspense fallback={<div>Loading...</div>}>
+                <ProductDetailsModal 
+                    open={openProductDetailsModal} 
+                    handleClose={handleCloseProductDetails} 
+                    product={clickedProduct}
+                    showAddToCartButton={false}
+                    /> 
+            </Suspense> : null}
+            
+            <ThemeProvider theme={whiteButtonTheme}>
+            <Snackbar
+                message={<p class="mb-0"><FormattedMessage id="product-added" /></p>}
+                open={showSnackbar}
+                handleClose={hideSnackbar}                
+                type="success"
+            />
+            </ThemeProvider>
         </div>
         </ThemeProvider>
     )
