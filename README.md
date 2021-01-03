@@ -6,6 +6,10 @@ A portfolio project on the MERN stack
 
 https://feedhunt.web.app
 
+## Backend application repo
+
+https://github.com/adrianchincm/feedhunt-api
+
 ## Description
 
 Feedhunt is Twitter meeting a shopping cart. It allows users to share deals about products by embedding them in their posts.  
