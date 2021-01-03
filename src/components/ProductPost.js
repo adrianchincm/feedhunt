@@ -31,7 +31,7 @@ const ProductPost = props => {
                     class="w-500px h-265px rounded-tl-xl rounded-tr-xl"
                     />
             <div class="flex flex-col ml-4 text-left my-2">               
-               <p class="mb-0 text-green">RM {props.product.price}</p>
+               <p class="mb-0 text-green">RM {props.product.price.toFixed(2)}</p>
                <p class="mb-0">{props.product.title}</p>
                <p class="mb-0 text-textgray">{props.product.description}</p> 
             </div>                   

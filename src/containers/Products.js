@@ -4,7 +4,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ProductList from '../components/ProductList';
 import AddProductModal from '../components/AddProductModal';
-import { backButtonTheme } from '../styles/materialui'
+import Snackbar from '../components/Snackbar';
+import { backButtonTheme, whiteButtonTheme } from '../styles/materialui'
 import { ThemeProvider } from '@material-ui/core/styles';
 import {FormattedMessage} from 'react-intl';
 import { authApi } from '../shared/api'
@@ -24,6 +25,7 @@ const Products = props => {
     const [resetModal, setResetModal] = useState(false)
     const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
     const [clickedProduct, setClickedProduct] = useState(null)
+    const [showSnackbar, setShowSnackbar] = useState(false)
     const ProductDetailsModal = React.lazy(() => import('../components/ProductDetailsModal'));
 
     useEffect(() => {
@@ -63,7 +65,8 @@ const Products = props => {
             })
             setLoading(false)
             handleClose()
-            getUserProducts()                                 
+            getUserProducts()
+            setShowSnackbar(true)
         } catch (e) {
             console.log(e)
         }    
@@ -76,6 +79,10 @@ const Products = props => {
     const handleCloseProductDetails = () => {          
         setOpenProductDetailsModal(false);        
     };
+
+    const hideSnackbar = () => {
+        setShowSnackbar(false)
+    };  
 
     return (
         <ThemeProvider theme={backButtonTheme}>
@@ -138,6 +145,15 @@ const Products = props => {
                     showAddToCartButton={false}
                     /> 
             </Suspense> : null}
+            
+            <ThemeProvider theme={whiteButtonTheme}>
+            <Snackbar
+                message={<p class="mb-0"><FormattedMessage id="product-added" /></p>}
+                open={showSnackbar}
+                handleClose={hideSnackbar}                
+                type="success"
+            />
+            </ThemeProvider>
         </div>
         </ThemeProvider>
     )

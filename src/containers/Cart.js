@@ -14,6 +14,8 @@ const Cart = props => {
 
     const history = useHistory()
     const [cart, setCart] = useState(null)
+    const [emptyCart, setEmptyCart] = useState(false)
+    const [loader, setLoader] = useState(true)
 
     useEffect(() => {
         getUserCart()
@@ -21,8 +23,14 @@ const Cart = props => {
 
     const getUserCart = async () => {                   
         try {
-            const productsResponse = await authApi(END_POINTS.cart)            
-            setCart(productsResponse)                        
+            const productsResponse = await authApi(END_POINTS.cart)
+            setLoader(false)
+            if (productsResponse.items.length === 0) {
+                setEmptyCart(true)
+            } else (
+                setCart(productsResponse)
+            )
+            
         } catch (e) {
             console.log(e)
         }                
@@ -48,22 +56,25 @@ const Cart = props => {
                                                              
                 </div>                                
                                     
-            </div>          
+            </div>
+
+            {emptyCart && <p class="mt-4 text-textgray">Your cart is empty</p>}
+            {loader ? <div class="mt-4"><CircularProgress /></div> : null}
 
             {cart ? 
                 <div class="mt-4">
                     {cart.items && cart.items.map((item, i) => {
                         return <CartItem item={item} key={item._id} index={i} setUpdatedCart={setUpdatedCart}/>
                     })}
-                </div> : <div class="mt-4"><CircularProgress /></div>}
+                </div> : null}
 
-                <div class="p-4 box-border w-598px flex fixed bottom-0 bg-bgPrimary z-10 items-center border-solid border-t border-dividerGray">               
+                {cart ? <div class="p-4 box-border w-598px flex fixed bottom-0 bg-bgPrimary z-10 items-center border-solid border-t border-dividerGray">               
                     <div class="flex flex-1 items-center">                        
                         <p class="mb-0 ml-4 font-medium text-xl text-textgray"><FormattedMessage id="cart-total" /> : </p>
-                        {cart ? <p class="mb-0 ml-4 text-xl font-bold">RM {cart.grandTotal.toFixed(2)}</p> : null}
+                        <p class="mb-0 ml-4 text-xl font-bold">RM {cart.grandTotal.toFixed(2)}</p> 
                                                                 
                     </div>                                                                    
-                </div>    
+                </div> : null }   
         </div>
         </ThemeProvider>
     )

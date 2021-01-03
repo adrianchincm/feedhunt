@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 import Feed from '../components/Feed'
 import { Button, Tag } from 'antd';
 import {connect} from 'react-redux';
@@ -8,10 +10,11 @@ import { authApi } from '../shared/api'
 import { END_POINTS }  from '../endpoints'
 import { HTTP_POST }  from '../constants'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { backButtonTheme } from '../styles/materialui'
+import { backButtonTheme, whiteButtonTheme } from '../styles/materialui'
 import {FormattedMessage} from 'react-intl';
 import { monthYearDate } from '../shared/utility'
 import { CheckOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
 import avatar from '../images/user.png'
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -138,21 +141,34 @@ const Profile = props => {
                  
                     <div class="absolute top-0 right-0 mt-8 mr-8">
                     {props.user && props.user.username === props.username ? null : 
+                    
                         <div>
                             {isFollowing ? 
+                            <ThemeProvider theme={whiteButtonTheme}>
                             <div class="flex flex-col">
-                                <Button type="primary" loading={followLoading} shape="round" size="large" onClick={() => unfollowUser()}>
-                                    <FormattedMessage
-                                        id="unfollow"          
-                                    />
+                                <Button type="primary" shape="round" size="large" onClick={() => unfollowUser()}>                                 
+                                    <div class="flex items-center">
+                                        {followLoading ? <LoadingOutlined /> : <PersonAddDisabledIcon />}
+
+                                        <div class="pl-2">
+                                            <FormattedMessage id="unfollow" />
+                                        </div>                       
+                                        
+                                    </div>   
                                 </Button> 
                                 
                             </div>
+                            </ThemeProvider>
                             : 
-                            <Button type="primary" ghost loading={followLoading} shape="round" size="large" onClick={() => followUser()}>
-                                <FormattedMessage
-                                    id="follow"          
-                                />
+                            <Button type="primary" ghost shape="round" size="large" onClick={() => followUser()}>
+                                    <div class="flex items-center">
+                                        {followLoading ? <LoadingOutlined /> : <PersonAddIcon />}
+
+                                        <div class="pl-2">
+                                            <FormattedMessage id="follow" />
+                                        </div>                       
+                                        
+                                    </div>   
                             </Button>}
                             
                         </div>
