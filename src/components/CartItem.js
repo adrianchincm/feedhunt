@@ -7,24 +7,58 @@ import { useHistory } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core/styles';
 import { backButtonTheme } from '../styles/materialui';
 import { FormattedMessage } from 'react-intl';
+import { authApi } from '../shared/api'
+import { END_POINTS }  from '../endpoints'
+import { HTTP_POST, INCREMENT, DECREMENT } from '../constants'
 
 const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
 
     const history = useHistory()
     const [openProductDetailsModal, setOpenProductDetailsModal] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [quantity, setQuantity] = useState(item.quantity)
     const ProductDetailsModal = React.lazy(() => import('./ProductDetailsModal'));
+
+    const onChangeQuantity = async (type) => {                   
+        setLoading(true)
+        const productObj = {
+            product: product._id,
+            quantity: 1,
+            action: type
+        }        
+
+        try {
+            const cart = await authApi(END_POINTS.cart, {
+                method: HTTP_POST,
+                body: JSON.stringify(productObj)
+            })           
+            setLoading(false)
+            const updatedItem = cart.items.find(arrayItem => arrayItem._id === item._id)
+            setQuantity(updatedItem.quantity)
+
+        } catch (e) {
+            console.log(e)
+        }                
+    }
 
     const onProductTitleClicked = () => {
         setOpenProductDetailsModal(true)
     }
 
-    const handleClose = () => {  
-        console.log("close")      
+    const handleClose = () => {          
         setOpenProductDetailsModal(false);        
     };
 
     const onSellerClicked = () => {
         history.push(`/user/${owner.username}`)
+    }
+
+    const onIncrementClicked = () => {
+        onChangeQuantity(INCREMENT)
+    }
+
+    const onDecrementClicked = () => {
+        onChangeQuantity(DECREMENT)
     }
 
     return (
@@ -65,18 +99,18 @@ const CartItem = ({item, item: { product }, item: { product: {owner} } },) => {
                 <div class="flex items-center">
                     <IconButton
                         aria-label="toggle password visibility"
-                        // onClick={handleClickShowPassword}
-                        // onMouseDown={handleMouseDownPassword}
+                        onClick={() => onIncrementClicked()}
+                        disabled={loading}
                         >
                         <AddIcon />
                     </IconButton>
 
-                    <p class="mb-0">{item.quantity}</p>
+                    <p class="mb-0">{quantity}</p>
 
                     <IconButton
                         aria-label="toggle password visibility"
-                        // onClick={handleClickShowPassword}
-                        // onMouseDown={handleMouseDownPassword}
+                        onClick={() => onDecrementClicked()}
+                        disabled={loading}
                         >
                         <RemoveIcon />
                     </IconButton>
