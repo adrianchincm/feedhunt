@@ -21,19 +21,19 @@ const LandingPage = props => {
         <div class="grid md:grid-cols-2 grid-cols-1">
             <div class="flex items-center h-screen bg-gradient-to-l from-secondary to-textgray">
                 <div class="mx-auto">
-                    <div class="flex">
+                    <div class="flex mb-4">
                         <SearchIcon />
-                        <p class="font-bold text-xl ml-2 mb-4">Find the best deals</p>
+                        <p class="font-bold text-xl ml-2 mb-0">Find the best deals</p>
                     </div>
 
-                    <div class="flex">
+                    <div class="flex mb-4">
                         <ShareIcon />
-                        <p class="font-bold text-xl ml-2 mb-4">Share your own discoveries</p>
+                        <p class="font-bold text-xl ml-2 mb-0">Share your own discoveries</p>
                     </div>
 
-                    <div class="flex">
+                    <div class="flex ">
                         <DynamicFeedIcon />
-                        <p class="font-bold text-xl ml-2 mb-4">Get the latest updates</p>
+                        <p class="font-bold text-xl ml-2 mb-0">Get the latest updates</p>
                     </div>                                                
                 </div>                
             </div>
