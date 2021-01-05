@@ -21,7 +21,7 @@ module.exports = {
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber,
-    },
+    },    
     extend: {
       width: {
         '30px': '30px',
@@ -38,7 +38,11 @@ module.exports = {
         '50px': '50px',
         '130px': '130px',
         '265px': '265px'
-      }
+      },
+      spacing: {
+        '47p': '47%',
+        '42p': '42%'
+      },
     },    
 
   },

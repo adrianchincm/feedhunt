@@ -17,4 +17,5 @@ export const END_POINTS = {
         return `/cart/${itemId}`;
     },
     recommended: `/recommended`,
+    updateProfile: `/users/me`,
 }
