@@ -16,6 +16,7 @@ import { monthYearDate } from '../shared/utility'
 import { CheckOutlined } from '@ant-design/icons';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useHistory } from "react-router-dom";
+import EditProfileModal from "../components/EditProfileModal";
 import avatar from '../images/user.png'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as actions from '../store/actions/index'
@@ -28,6 +29,7 @@ const Profile = props => {
     const [userProfile, setUserProfile] = useState(null)
     const [isFollowing, setIsFollowing] = useState(null)
     const [followLoading, setFollowLoading] = useState(false)
+    const [showEditProfile, setShowEditProfile] = useState(false)
 
     useEffect(() => {
         getUserProfile()
@@ -83,10 +85,20 @@ const Profile = props => {
         }                
     }   
 
+    const editProfile = () => {
+        setShowEditProfile(true)
+    }
+
+    const hideEditProfileModal = () => {
+        setShowEditProfile(false)
+    }
+
     return (
         <ThemeProvider theme={backButtonTheme}>
         <div class="border-solid">
-            <div class="p-4 flex sticky top-0 bg-bgPrimary z-10 items-center border-solid border-b border-dividerGray">
+          
+            {console.log("SHOW MODAL", showEditProfile)}
+            <div class="p-4 z-10 flex sticky top-0 bg-bgPrimary items-center border-solid border-b border-dividerGray">
                 <IconButton aria-label="delete" onClick={() => history.goBack()}>
                     <ArrowBackIcon />
                 </IconButton>
@@ -140,7 +152,15 @@ const Profile = props => {
                     </div>
                  
                     <div class="absolute top-0 right-0 mt-8 mr-8">
-                    {props.user && props.user.username === props.username ? null : 
+                    {props.user && props.user.username === props.username ? <div>
+                        <Button type="primary" ghost shape="round" size="large" onClick={() => editProfile()}>
+                                    <div class="flex items-center">                                        
+                                        <div class="pl-2">
+                                            <FormattedMessage id="edit-profile" />
+                                        </div>                                                               
+                                    </div>   
+                            </Button>
+                        </div> : 
                     
                         <div>
                             {isFollowing ? 
@@ -177,13 +197,18 @@ const Profile = props => {
                 </div>    
 
                 <Feed posts={userProfile.posts}/>
-
+                
             </div> : 
                 <div class="mt-4">
                     <CircularProgress />
                 </div>}
-            
-            
+                {userProfile ? <EditProfileModal 
+                    open={showEditProfile} 
+                    displayname={userProfile.user.displayname} 
+                    avatar={userProfile.user.avatar}
+                    handleClose={hideEditProfileModal}
+                    /> : null }
+                
         </div>
         </ThemeProvider>
     );

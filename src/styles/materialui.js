@@ -120,7 +120,8 @@ export const modalStyles = makeStyles((theme) => ({
     border: '2px solid #393f4a',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    overflow: 'auto'
+    overflow: 'auto',
+    zIndex: '20'
   },
 }));
 
